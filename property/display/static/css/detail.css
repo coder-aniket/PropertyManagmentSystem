@@ -1,0 +1,186 @@
+/*
+Template Name:My Estate
+File: Layout CSS
+Author: Templates On Web
+Author URI: http://templateonweb.com/
+Licence: <a href="http://www.templateonweb.com/terms.php?v=content&contentid=152">Website Template Licence</a>
+*/
+/*********************blog_detail****************/
+.center_blog_d {
+    background-image: url(../img/33.jpg);
+	background-position:center;
+}
+
+#blog_page{
+  background:#f4f4f4;
+  padding-top:40px;
+  padding-bottom:40px;
+  }
+.blog_page_1rm{
+ background:#fff;
+ padding-left:15px;
+ padding-right:15px;
+ padding-top:20px;
+ padding-bottom:20px;
+  }  
+.blog_page_1r {
+padding-top:15px;
+  }
+.blog_page_1r .btn{
+  background:#90c923;
+  border-color:#90c923;
+  }
+.blog_page_1r h4{
+ margin-top:20px;
+ margin-bottom:10px; 
+  }
+.blog_page_1r ul li{
+margin-bottom:10px;
+  }
+.blog_page_1r h6 i{
+color:#90c923;
+margin-left:10px;
+  }
+.blog_page_1r1{
+margin-top:20px;  
+  }
+
+.blog_page_1r1 ul{
+  margin-bottom:10px;
+  }
+.blog_page_1r1 ul li{
+display:inline-block; 
+margin-left:5px;
+margin-right:5px;
+  }
+.blog_page_1r1 ul li a{
+background:#f4f4f4;
+padding:10px 15px;
+display:block; 
+  }
+.blog_page_1r1 ul li a:hover{
+ background:#90c923;
+ color:#fff;
+  }
+.blog_page_1r1 ul .active a{
+ background:#90c923;
+ color:#fff;
+ }
+.tab_1 h6 i{
+ color:#90c923;
+ margin-right:5px; 
+  }
+.blog_page_1r2{
+ margin-top:20px;
+   }
+.blog_page_1r2 ul{
+ margin-top:10px;
+   }
+.blog_page_1r2 ul li{
+display:inline-block;
+margin-bottom:5px;
+   }
+.blog_page_1r2 ul li a{
+display:block;
+background:#f4f4f4;
+padding:8px 15px;
+   }
+.blog_page_1r2 ul li a:hover{
+ background:#90c923;
+ color:#fff;
+  }
+.blog_page_1r3 h4{
+ margin-top:20px;
+ margin-bottom:10px;
+  }
+.blog_page_1r3 ul li {
+    margin-bottom: 10px;
+}
+
+.blog_page_d h6 a{
+ color:#90c923; 
+  }
+.blog_page_d h6 i{
+margin-right:5px;
+color:#90c923;
+margin-left:10px; 
+  }
+.blog_page_db{
+ color: #90c923;
+ margin-top:20px;
+  }
+.blog_page_d ul{
+ display:block;
+ margin-top:15px; 
+  }
+.blog_page_d ul li a{
+ background:#999; 
+  }
+.blog_page_d1{
+ margin-top:20px; 
+  }
+.blog_page_d1i{
+  margin-top:15px;
+  border-bottom:1px solid #ddd;
+  padding-bottom:15px;
+  }
+.blog_page_d1i h5 span{
+ margin-left:40px;
+ font-size:14px;
+ color:#999;  
+   }
+.blog_page_d2{
+ margin-top:20px; 
+  }
+.blog_page_d2i{
+  margin-top:15px;
+  }
+.blog_page_d2i .form-control{
+border-radius:0;
+height:45px;
+  }
+.blog_page_d2i .form_1{
+height:120px;
+  }
+/*********************blog_detail_end****************/
+
+@media screen and (max-width : 767px){
+#blog_page{
+ text-align:center; 
+  }
+.blog_page_d1i img {
+  margin-bottom:15px;
+  }
+.blog_page_d2i .form-control{
+margin-top:10px;  
+  }
+.blog_page_d2i{
+margin-top:0;
+  }
+.blog_page_1r1 ul li{
+ margin-bottom:10px; 
+  }
+.blog_page_1rm{
+margin-top:15px;  
+  }
+}
+
+@media (min-width:768px) and (max-width:991px) {
+.blog_page_1 .space_left{
+ padding-left:15px!important; 
+  }
+.blog_page_1r1 ul li{
+ margin-bottom:5px; 
+  }
+ }
+ @media (min-width:992px) and (max-width:1200px) {
+.blog_page_1 .space_left{
+ padding-left:15px!important; 
+  }
+ }
+@media (min-width:1201px) and (max-width:1325px) {
+
+ }
+
+
+

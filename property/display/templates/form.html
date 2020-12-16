@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Form</title>
+	<meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>My Estate</title>
+	<link href="css/bootstrap.min.css" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Righteous&display=swap" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Ibarra+Real+Nova&display=swap" rel="stylesheet">
+	<link href="css/global.css" rel="stylesheet">
+	<link href="css/index.css" rel="stylesheet">
+	<link rel="stylesheet" type="text/css" href="css/font-awesome.min.css" />
+	<script src="js/jquery-2.1.1.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/validate.js"></script>
+    <script type="text/javascript" src="js/global.js"></script>
+</head>
+<body>
+
+	<div class="container form" id="form1">
+	<nav class="navbar">
+	  <div class="" id="navbarSupportedContent">
+	    <ul class="navbar-nav mr-auto">
+	      <li id="form-slide1" class="nav-item active">
+	        <a class="nav-link" href="#" onclick="slide()">Register</a>
+	      </li>
+	      <li id="form-slide2" class="nav-item">
+	        <a class="nav-link" href="#" onclick="slide()">Log In</a>
+	      </li>
+	      <li id="form-slide3" class="nav-item hide">
+	        <a class="nav-link" href="#">Forget Pasword</a>
+	      </li>
+	    </ul>
+	  </div>
+	</nav>
+	<br>
+	<div id="register" class="register">
+		<div>
+		<form name="registration" onsubmit="return rvalidate()">
+			<div class="form-group row">
+				<div class="col-sm-12 col-md-6">
+					<label>First Name<span class="astric"><sup>*</sup></span></label>
+					<input type="text" name="fname" placeholder="First Name" class="form-control" onkeyup="check('fname')">
+					<span id="fname"></span>
+				</div>
+				<div class="col-sm-12 col-md-6">
+					<label>Last Name<span class="astric"><sup>*</sup></span></label>
+					<input type="text" name="lname" placeholder="Last Name" class="form-control" onkeyup="check('lname')">
+					<span id="lname"></span>
+				</div>
+			</div>
+			<div class="form-group row">
+				<div class="col-sm-12 col-md-6">
+					<label>Email<span class="astric"><sup>*</sup></span></label>
+					<input type="email" name="email" placeholder="Email eg.abc@xyz.com" class="form-control" onkeyup="check('email')">
+					<span id="email"></span>
+				</div>
+				<div class="col-sm-12 col-md-6">
+					<label>Contact<span class="astric"><sup>*</sup></span></label>
+					<input type="tel" name="contact" placeholder="contact" class="form-control" onkeyup="check('contact')">
+					<span id="contact"></span>
+				</div>
+			</div>
+			<div class="form-group row">
+				<div class="col-sm-12 col-md-6">
+					<label>Password<span class="astric"><sup>*</sup></span></label>
+					<input type="password" name="password" placeholder="Password" class="form-control" onkeyup="check('password')">
+					<span id="password"></span>
+				</div>
+				<div class="col-sm-12 col-md-6">
+					<label>Confirm Password<span class="astric"><sup>*</sup></span></label>
+					<input type="password" name="cpassword" placeholder="Confirm Password" class="form-control" onkeyup="check('cpassword')">
+					<span id="cpassword"></span>
+				</div>
+			</div>
+			<div class="form-group submit">
+				<input type="submit" name="Submit" value="Register" class="btn btn-success">
+			</div>
+			<p class="astric">* is manadetory fields</p>
+		</form>
+	</div>
+	</div>
+	<div id="login" class="login hide">
+		<div>
+		<form name="Login" action="abc" onsubmit="return lvalidate()">
+			<div class="form-group row">
+				<div class="col-sm-12 col-md-6">
+					<label>Email<span class="astric"><sup>*</sup></span></label>
+					<input type="email" name="email" placeholder="Email eg.abc@xyz.com" class="form-control" onkeyup="check('lemail')">
+					<span id="lemail"></span>
+				</div>
+				<div class="col-sm-12 col-md-6">
+					<label>Password<span class="astric"><sup>*</sup></span></label>
+					<input type="password" name="password" placeholder="Password" class="form-control" onkeyup="check('lpassword')">
+					<span id="lpassword"></span>
+				</div>
+			</div>
+			<div class="form-group submit">
+				<input type="submit" name="Submit" value="Log In" class="btn btn-success">
+				<a class="btn btn-danger right" onclick="forget()">Forget Password</a>
+				<p class="astric">* is manadetory fields</p>
+			</div>
+		</form>
+		</div>
+	</div><br>
+	<div id="fpass" class="fpass hide">
+			<div>
+			<form name="fpass" action="abc" onsubmit="return fvalidate()">
+				<div class="form-group row">
+					<div class="col-sm-12 col-md-6">
+						<label>Email<span class="astric"><sup>*</sup></span></label>
+						<input type="email" name="femail" placeholder="Email eg.abc@xyz.com" class="form-control" onkeyup="check('femail')">
+						<span id="femail"></span>
+					</div>
+					<div class="col-sm-12 col-md-6">
+						<label>Mobile<span class="astric"><sup>*</sup></span></label>
+						<input type="tel" name="contact" placeholder="Contact" class="form-control" onkeyup="check('contact')">
+						<span id="fcontact"></span>
+					</div>
+				</div>
+				<div class="form-group row">
+					<div class="col-sm-12 col-md-6">
+						<label>New Password<span class="astric"><sup>*</sup></span></label>
+						<input type="password" name="password" placeholder="New Password" class="form-control" onkeyup="check('fpassword')">
+						<span id="fpassword"></span>
+					</div>
+					<div class="col-sm-12 col-md-6">
+						<label>Confirm Password<span class="astric"><sup>*</sup></span></label>
+						<input type="password" name="cpassword" placeholder="Confirm Password" class="form-control" onkeyup="check('fcpassword')">
+						<span id="fcpassword"></span>
+					</div>
+				</div>
+				<div class="form-group submit">
+					<input type="submit" name="Submit" value="Reset Password" class="btn btn-success">
+					<a class="btn btn-info right" onclick="forget()">Log In</a>
+					<p class="astric">* is manadetory fields</p>
+				</div>
+			</form>
+			</div>
+		</div><br>
+
+</div>
+</body>
+</html>

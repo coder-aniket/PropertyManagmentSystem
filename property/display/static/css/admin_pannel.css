@@ -1,0 +1,20 @@
+#admin_pannel{
+	
+}
+#side_pannel{
+	position: absolute;
+	position: fixed;
+}
+#main_pannel{
+	margin-left: 114px;
+}
+.row{
+	/*width: 100%;*/
+}
+td{
+	border: 2px black solid;
+	padding: 4px 4px;
+}
+.hide{
+	display: none;
+}

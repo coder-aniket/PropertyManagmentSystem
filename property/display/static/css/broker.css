@@ -1,0 +1,128 @@
+/*
+Template Name:My Estate
+File: Layout CSS
+Author: Templates On Web
+Author URI: http://templateonweb.com/
+Licence: <a href="http://www.templateonweb.com/terms.php?v=content&contentid=152">Website Template Licence</a>
+*/
+
+/*********************booking****************/
+#booking{
+  padding-top:40px;
+  padding-bottom:25px;  
+  }
+option { 
+    background-color: #90c923;
+  color:#fff;
+  font-size:16px;
+}
+.booking_1i .form-control{
+font-size:16px;
+height:45px;
+border-radius:0;
+  }
+.booking_1{
+margin-bottom:15px; 
+ }
+.booking_1i h5 a{
+ display:block;
+ padding:0;
+ height:45px;
+ line-height:45px;
+ }
+.booking_1i ::placeholder {
+  color: #666;
+  opacity: 1; /* Firefox */
+}
+/*********************booking_end****************/
+
+
+/*********************contact****************/
+.center_blog_d {
+    background-image: url(../img/40.jpg);
+	background-position:center;
+}
+
+#prop{
+   background:#f4f4f4;
+   padding-top:20px;
+   padding-bottom:40px;
+   }
+
+.list_1_1i{
+background:#fff;
+padding:15px 10px 30px 10px;  
+  }
+.list_1_1i h4{
+  text-align:center;
+  font-size:34px;
+  color:#f65a3a;
+  }
+.list_1_1i ul{
+  margin-top:10px;
+  }
+.list_1_1i ul li{
+ display:inline-block; 
+ margin-right:5px;
+  }
+.nav_list span{
+  font-weight:bold;
+  color:#000;
+  }
+.date{
+ font-size:12px;  
+   }
+.Edit a{
+ background:#000;
+ padding:6px 15px;
+ display:inline-block;
+ color:#fff;  
+   }
+.Edit a:hover{
+background:#90c923;
+   }
+.det a{
+ padding:6px 15px;
+ display:inline-block;
+ color:#fff;
+ background:#90c923;
+   }
+.det a:hover{
+background:#000;
+   }
+.list_1{
+margin-top:15px;  
+  }
+.prop_3{
+  margin-top:20px;
+  }
+/*********************contact_end****************/
+
+@media screen and (max-width : 767px){
+#prop{
+ text-align:center; 
+  }
+.list_1_1i {
+ margin-bottom:10px;
+ }
+.list_1_1i ul li{
+  margin-bottom:5px;
+  }
+}
+
+@media (min-width:768px) and (max-width:991px) {
+.list_1_1i ul li{
+ margin-bottom:5px; 
+  }
+ }
+ @media (min-width:992px) and (max-width:1200px) {
+.list_1_1i ul li{
+ margin-bottom:5px; 
+  }
+ }
+@media (min-width:1201px) and (max-width:1325px) {
+
+ }
+
+
+

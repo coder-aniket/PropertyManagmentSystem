@@ -1,0 +1,57 @@
+/*
+Template Name:My Estate
+File: Layout CSS
+Author: Templates On Web
+Author URI: http://templateonweb.com/
+Licence: <a href="http://www.templateonweb.com/terms.php?v=content&contentid=152">Website Template Licence</a>
+*/
+/*********************center_team****************/
+.center_team {
+    background-image: url(../img/26.jpg);
+	background-position:center;
+}
+  
+#team_home{
+  padding-top:40px;
+  padding-bottom:40px;
+  background:#f4f4f4;
+  }
+.item_1{
+background:#fff;
+padding-top:10px;
+padding-bottom:20px;
+padding-left:15px;
+padding-right:15px;  
+  }
+.team_p{
+  margin-top:20px; 
+   }
+.item_1 ul li a{
+ background:#999; 
+  }
+.item_1 p{
+  margin-bottom:10px;
+  }
+/*********************center_team_end****************/
+
+@media screen and (max-width : 767px){
+.col-item{
+  margin-bottom:10px;
+  }
+}
+
+@media (min-width:768px) and (max-width:991px) {
+#team_home ul.social-network li{
+  display:inline-block;
+  margin-bottom:5px;
+  }
+ }
+ @media (min-width:992px) and (max-width:1200px) {
+
+ }
+@media (min-width:1201px) and (max-width:1325px) {
+
+ }
+
+
+

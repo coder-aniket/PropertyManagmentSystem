@@ -1,0 +1,509 @@
+/*
+Template Name:My Estate
+File: Layout CSS
+Author: Templates On Web
+Author URI: http://templateonweb.com/
+Licence: <a href="http://www.templateonweb.com/terms.php?v=content&contentid=152">Website Template Licence</a>
+*/
+/*********************center_home****************/
+.fade-carousel {
+    position: relative;
+    height: 90vh;
+}
+.fade-carousel .carousel-inner .item {
+    height: 90vh;
+}
+.fade-carousel .carousel-indicators > li {
+    margin: 0 2px;
+    background-color: #90c923;
+    border-color: #90c923;
+    opacity: .7;
+	width: 20px;
+    height: 20px;
+}
+.fade-carousel .carousel-indicators > li.active {
+  width: 20px;
+  height: 20px;
+  opacity: 1;
+}
+
+/********************************/
+/*          Hero Headers        */
+/********************************/
+.hero {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    z-index: 3;
+    color: #fff;
+    text-align: center;
+    text-shadow: 1px 1px 0 rgba(0,0,0,.75);
+      -webkit-transform: translate3d(-50%,-50%,0);
+         -moz-transform: translate3d(-50%,-50%,0);
+          -ms-transform: translate3d(-50%,-50%,0);
+           -o-transform: translate3d(-50%,-50%,0);
+              transform: translate3d(-50%,-50%,0);
+}
+.hero h1 {
+    font-size: 5em;    
+    font-weight: bold;
+    margin: 0;
+    padding: 0;
+	color:#fff;
+	margin-top:10px;
+}
+.hero h1 span{
+ color: #90c923;
+ }
+.hero p{
+ color: #fff;
+ font-size:24px;
+ }
+.fade-carousel .carousel-inner .item .hero {
+    opacity: 0;
+    -webkit-transition: 2s all ease-in-out .1s;
+       -moz-transition: 2s all ease-in-out .1s; 
+        -ms-transition: 2s all ease-in-out .1s; 
+         -o-transition: 2s all ease-in-out .1s; 
+            transition: 2s all ease-in-out .1s; 
+}
+.fade-carousel .carousel-inner .item.active .hero {
+    opacity: 1;
+    -webkit-transition: 2s all ease-in-out .1s;
+       -moz-transition: 2s all ease-in-out .1s; 
+        -ms-transition: 2s all ease-in-out .1s; 
+         -o-transition: 2s all ease-in-out .1s; 
+            transition: 2s all ease-in-out .1s;    
+}
+
+/********************************/
+/*            Overlay           */
+/********************************/
+.overlay {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+    background-color: #080d15b5;
+    opacity: .7;
+}
+
+/*       Slides backgrounds     */
+/********************************/
+.fade-carousel .slides .slide-1, 
+.fade-carousel .slides .slide-2,
+.fade-carousel .slides .slide-3 {
+  height: 90vh;
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+}
+.fade-carousel .slides .slide-1 {
+    background-image: url(../img/1.jpg);
+}
+.fade-carousel .slides .slide-2 {
+    background-image: url(../img/2.jpg);
+}
+.fade-carousel .slides .slide-3 {
+    background-image: url(../img/3.jpg);
+}
+
+/********************************/
+/*          Media Queries       */
+/********************************/
+@media screen and (min-width: 980px){
+    .hero { width: 980px; }    
+}
+@media screen and (max-width: 640px){
+    .hero h1 { font-size: 4em; }    
+}
+/*********************center_home_end****************/
+
+/*********************booking****************/
+#booking{
+  padding-top:40px;
+  padding-bottom:25px;  
+	}
+option { 
+    background-color: #90c923;
+	color:#fff;
+	font-size:16px;
+}
+.booking_1i .form-control{
+font-size:16px;
+height:45px;
+border-radius:0;
+  }
+.booking_1{
+margin-bottom:15px; 
+ }
+.booking_1i h5 a{
+ display:block;
+ padding:0;
+ height:45px;
+ line-height:45px;
+ }
+.booking_1i ::placeholder {
+  color: #666;
+  opacity: 1; /* Firefox */
+}
+/*********************booking_end****************/
+
+/*********************prop****************/
+#prop{
+   background:#f4f4f4;
+   padding-top:40px;
+   padding-bottom:40px;
+   }
+.prop_1 span i{
+display:inline-block;
+background:#90c923;
+color:#fff;
+width:60px;
+height:60px;
+text-align:center;
+line-height:60px;
+font-size:28px;  
+  } 
+.prop_2{
+ margin-top:30px; 
+  }
+.prop_2_l h3 span{
+ color:#90c923; 
+  }
+  
+.list_1_1i{
+background:#fff;
+padding:15px 10px 30px 10px;  
+  }
+.list_1_1i h4{
+  text-align:center;
+  font-size:34px;
+  color:#f65a3a;
+  }
+.list_1_1i ul{
+  margin-top:10px;
+  }
+.list_1_1i ul li{
+ display:inline-block; 
+ margin-right:5px;
+  }
+.nav_list span{
+  font-weight:bold;
+  color:#000;
+  }
+.date{
+ font-size:12px;  
+   }
+.comp a{
+ background:#000;
+ padding:6px 15px;
+ display:inline-block;
+ color:#fff;  
+   }
+.comp a:hover{
+background:#90c923;
+   }
+.det a{
+ padding:6px 15px;
+ display:inline-block;
+ color:#fff;
+ background:#90c923;
+   }
+.det a:hover{
+background:#000;
+   }
+.list_1{
+margin-top:15px;  
+  }
+.prop_3{
+  margin-top:20px;
+  }
+/*********************prop_end****************/
+
+/*********************wishlist****************/
+#wishlist{
+padding-top:30px;
+padding-bottom:40px;  
+  }
+.wishlist_1 h3{
+ color:#90c923; 
+  }
+.wishlist_2_i{
+ background:#f4f4f4; 
+ padding:40px 15px;
+  }
+.wishlist_2_i span i{
+font-size:40px; 
+  }
+.wishlist_2_i h4 a:hover{
+ color:#000; 
+  }
+.wishlist_2_i:hover{
+ background:#90c923;  
+  }
+.wishlist_2{
+margin-top:20px;  
+  }
+/*********************wishlist_end****************/
+
+/*********************about_home****************/
+#about_home{
+  background-image: url(../img/10.jpg);
+  background-attachment:fixed;
+  background-position:center;
+  }
+.about_home_m{
+  padding-top:90px;
+  padding-bottom:100px; 
+  background:#0000008c;
+   }
+.about_h_1i h3{
+  color:#fff;
+  }
+.about_h_1i h5{
+  color:#eee;
+  }
+.about_h_1i hr{
+  border-color:#90c923; 
+  width:12%;
+  border-width:5px;
+  border-radius:5px;
+  }
+/*********************about_home_end****************/
+
+/*********************team_home****************/
+#team_home{
+  padding-top:30px;
+  padding-bottom:40px;
+  background:#f4f4f4;
+  }
+#team_home .btn{
+background:#000;
+border:none;
+margin-left:3px;
+margin-right:3px;
+border-radius:0;
+margin-top:10px;  
+  }
+#team_home .btn:hover{
+background:#90c923;   
+  }
+.team_h_1{
+  margin-top:20px;
+  }
+.item_1{
+background:#fff;
+padding-top:10px;
+padding-bottom:20px;  
+  }
+/*********************team_home_end****************/
+
+/*********************clients****************/
+#clients{
+padding-top:40px;
+padding-bottom:40px;
+  }
+#quote-carousel .carousel-control {
+    background: none;
+    color: #CACACA;
+    font-size: 2.3em;
+    text-shadow: none;
+    margin-top: 30px;
+}
+#quote-carousel .carousel-control.left {
+    left: -60px;
+	display:none;
+}
+#quote-carousel .carousel-control.right {
+    right: -60px;
+	display:none;
+}
+#quote-carousel .carousel-indicators {
+    right: 50%;
+    top: auto;
+    bottom: -120px;
+    margin-right: -19px;
+}
+#quote-carousel .carousel-indicators li {
+    width: 80px;
+    height: 80px;
+    margin: 5px;
+    cursor: pointer;
+    border: 4px solid #CCC;
+    border-radius: 50px;
+    opacity: 0.4;
+    overflow: hidden;
+    transition: all 0.4s;
+}
+#quote-carousel .carousel-indicators .active {
+    background: #333333;
+    width: 120px;
+    height: 120px;
+    border-radius: 100px;
+    border-color: #90c923;
+    opacity: 1;
+    overflow: hidden;
+}
+.carousel-inner {
+    min-height: 300px;
+}
+.item blockquote {
+    border-left: none;
+    margin: 0;
+}
+.item blockquote p:before {
+    content: "\f10d";
+    font-family: 'Fontawesome';
+    float: left;
+    margin-right: 10px;
+}
+.clients_1r h3 span{
+  color:#90c923;
+  }
+.clients_1r{
+padding-top:40px;
+  }
+/*********************clients_end****************/
+
+/*********************news_home****************/
+#news_home{
+  background:#f4f4f4; 
+  padding-top:30px;
+  padding-bottom:40px;
+   }
+.news_home_1ii{
+  background:#fff;
+  padding:15px 15px 25px 15px;
+  }
+.news_home_1ii h6 a{
+color:#90c923;
+  }
+.news_home_1ii h6 a:hover{
+color:#333;
+  }
+.news_home_1{
+ margin-top:20px; 
+  }
+/*********************news_home_end****************/
+
+
+@media screen and (max-width : 767px){
+.hero h1{
+  font-size:30px!important;
+  }
+.hero p{
+  font-size:16px!important;
+  }
+.hero .button{
+padding:10px 15px;
+font-size:16px;
+  }
+.booking_1i{
+ margin-top:10px;
+ }
+.prop_1i {
+ text-align:center;
+ margin-bottom:15px; 
+  }
+.prop_2 {
+ text-align:center;
+ }
+.prop_2_r {
+ text-align:center;
+  }
+.list_1_1i {
+  text-align:center;
+  margin-bottom:10px; 
+  }
+.list_1_1i ul li{
+ margin-bottom:5px; 
+  }
+.wishlist_2_i {
+ margin-bottom:10px; 
+  }
+.controls {
+ float:none!important;
+ }
+.col-item{
+  margin-bottom:10px;
+  }
+#quote-carousel .carousel-indicators .active{
+ width:60px;
+ height:60px; 
+  }
+#quote-carousel .carousel-indicators li{
+  width:30px;
+  height:30px;
+  }
+#quote-carousel .carousel-indicators{
+bottom:-80px;  
+  }
+#news_home{
+ margin-top:50px; 
+  }
+.news_home_1ii {
+ text-align:center;
+ margin-bottom:10px; 
+  }
+}
+
+@media (min-width:768px) and (max-width:991px) {
+.list_1_1i ul li{
+ margin-bottom:5px; 
+  }
+.carousel-inner{
+  min-height:auto;
+  }
+.clients_1r{
+ padding-top:0; 
+  }
+.clients_1r p{
+font-size:14px; 
+  }
+.clients_1r h3{
+margin-top:0; 
+  }
+#quote-carousel .carousel-indicators .active{
+ width:60px;
+ height:60px; 
+  }
+#quote-carousel .carousel-indicators li{
+  width:30px;
+  height:30px;
+  }
+#quote-carousel .carousel-indicators{
+bottom:-80px;  
+  }
+#news_home{
+  margin-top:50px;
+  }
+ }
+ @media (min-width:992px) and (max-width:1200px) {
+.list_1_1i ul li{
+ margin-bottom:5px; 
+  }
+.carousel-inner{
+  min-height:auto;
+  }
+#quote-carousel .carousel-indicators .active{
+ width:60px;
+ height:60px; 
+  }
+#quote-carousel .carousel-indicators li{
+  width:30px;
+  height:30px;
+  }
+#quote-carousel .carousel-indicators{
+bottom:-80px;  
+  }
+ .clients_1r{
+ padding-top:0; 
+  }
+ }
+@media (min-width:1201px) and (max-width:1325px) {
+
+ }
+
+
+

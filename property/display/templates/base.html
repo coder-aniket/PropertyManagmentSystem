@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html>
+<head>{% load static %}
+	<title>{% block title %}{% endblock %}</title>
+	<meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>My Estate</title>
+	<link href="{%static 'css/bootstrap.min.css'%}" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Righteous&display=swap" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Ibarra+Real+Nova&display=swap" rel="stylesheet">
+	<link href="{%static 'css/global.css'%}" rel="stylesheet">
+	<link href="{%static 'css/font-awesome.min.css'%}" rel="stylesheet" >
+	
+	<script src="{%static 'js/jquery-2.1.1.min.js'%}"></script>
+    <script src="{%static 'js/bootstrap.min.js'%}"></script>
+    <script src="{%static 'js/global.js'%}"></script>
+    <script src="{%static 'js/validate1.js'%}"></script>
+    {% block links %}
+    {% endblock %}
+</head>
+<body>
+
+<section id="top">
+ <div class="container">
+  <div class="row">
+   <div class="top_1 clearfix">
+    <div class="col-sm-4">
+	 <div class="top_1l clearfix">
+	  <ul>
+	   <li><a href="#"><i class="fa fa-phone"></i> Need Support ? +1-234-567-8901</a></li>
+	  </ul>
+	 </div>
+	</div>
+	
+	<div class="col-sm-4">
+	 <div class="top_1l text-center clearfix">
+		 <ul>
+		  <li id="formlink" class="formlink"><a><i class="fa fa-user"></i> Login / Registration</a></li>
+		 </ul>
+	 </div>
+	</div>
+	
+	<div class="col-sm-4">
+	 <div class="top_1r text-center clearfix">
+		  <ul class="social-network social-circle">
+							<li><a href="#" class="icoRss" title="Rss"><i class="fa fa-rss"></i></a></li>
+							<li><a href="#" class="icoFacebook" title="Facebook"><i class="fa fa-facebook"></i></a></li>
+							<li><a href="#" class="icoTwitter" title="Twitter"><i class="fa fa-twitter"></i></a></li>
+							<li><a href="#" class="icoGoogle" title="Google +"><i class="fa fa-google-plus"></i></a></li>
+							<li><a href="#" class="icoLinkedin" title="Linkedin"><i class="fa fa-linkedin"></i></a></li>
+		 </ul>
+	 </div>
+	</div>
+   </div>
+  </div>
+ </div>
+</section>
+
+<section id="form" class="container m-fadeOut">
+	<div class="container form" id="form1">
+	<nav class="navbar">
+	  <div class="" id="navbarSupportedContent">
+	    <ul id="form-menu" class="navbar-nav mr-auto">
+	      <li id="register-tab" class="nav-item active">
+	        <a class="nav-link" href="#">Register</a>
+	      </li>
+	      <li id="login-tab" class="nav-item">
+	        <a class="nav-link" href="#">Log In</a>
+	      </li>
+	      <li id="forget-tab" class="nav-item hide">
+	        <a class="nav-link" href="#">Forget Pasword</a>
+	      </li>
+	    </ul>
+	  </div>
+	</nav>
+	<br>
+	<div>
+		<div>
+			<form action="register" name="form" onsubmit="return validate()">
+				<div class="form-group row">
+					<div class="col-sm-12 col-md-6">
+						<label>First Name<span class="astric"><sup>*</sup></span></label>
+						<input type="text" name="fname" placeholder="First Name" class="form-control rfield">
+						<span></span><br>
+					</div>
+					<div class="col-sm-12 col-md-6">
+						<label>Last Name<span class="astric"><sup>*</sup></span></label>
+						<input type="text" name="lname" placeholder="Last Name" class="form-control rfield">
+						<span></span><br>
+					</div>
+				<!-- </div>
+				<div id="contact" class="form-group row"> -->
+					<div class="col-sm-12 col-md-6">
+						<label>Email<span class="astric"><sup>*</sup></span></label>
+						<input type="email" name="email" placeholder="Email eg.abc@xyz.com" class="form-control rfield lfield ffield">
+						<span></span><br>
+					</div>
+					<div class="col-sm-12 col-md-6">
+						<label>Contact<span class="astric"><sup>*</sup></span></label>
+						<input type="tel" name="contact" placeholder="contact" class="form-control rfield ffield">
+						<span></span><br>
+					</div>
+				<!-- </div>
+				<div id="password" class="form-group row"> -->
+					<div class="col-sm-12 col-md-6">
+						<label>Password<span class="astric"><sup>*</sup></span></label>
+						<input type="password" name="password" placeholder="Password" class="form-control rfield lfield ffield">
+						<span></span><br>
+					</div>
+					<div class="col-sm-12 col-md-6">
+						<label>Confirm Password<span class="astric"><sup>*</sup></span></label>
+						<input type="password" name="cpassword" placeholder="Confirm Password" class="form-control rfield ffield">
+						<span ></span><br>
+					</div>
+				</div>
+				<div class="form-group submit">
+					<input type="submit" name="Submit" value="Register" class="btn btn-success">
+					<input type="submit" name="Submit" value="Log In" class="btn btn-success hide">
+					<a class="btn btn-danger right hide fbutton hide">Forget Password</a>
+					<input type="submit" name="Submit" value="Reset Password" class="btn btn-success hide">
+					<a class="btn btn-info right hide lbutton">Log In</a>
+				</div>
+				<p class="astric">* is manadetory fields</p>
+			</form>
+</section>
+
+<section id="header" class="cd-secondary-nav clearfix">
+	<nav class="navbar">
+        <div class="container">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header page-scroll">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="index.html"><i class="fa fa-home"></i>VMJMBOE <span>PROPERTY</span></a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-right menu">
+                	<li>
+                        <a id="login_a" class="tag_m hide" href="#" data-toggle="dropdown" role="button" aria-expanded="false">User<span class="caret"></span></a>
+					  <ul class="dropdown-menu drop_1" role="menu">
+					  	<li><a class="formlink" >Log In</a></li>
+						<li><a href="profile.html">Profile</a></li>
+						<li><a href="list.html">Bookmark</a></li>
+						<li><a href="list.html">Listed</a></li>
+					  </ul>
+                    </li>
+
+                    <li>
+                        <a class="tag_m  {% block index %}{% endblock %}" href="{% url 'index'  %}">Home</a>
+                    </li>
+                    
+                    <li>
+                        <a class="tag_m {% block add_property %}{% endblock %}" href="{% url 'add_property' %}">Add Property</a>
+                    </li>
+
+                    <li>
+                        <a class="tag_m {% block my_property %}{% endblock %}" href="{% url 'my_property' %}">My Property</a>
+                    </li>
+
+					<li>
+                        <a class="tag_m {% block list %}{% endblock %}" href="{% url 'list' %}">List</a>
+                    </li>
+					
+					<li>
+                        <a class="tag_m {% block team %}{% endblock %}" href="{% url 'team' %}">Team</a>
+                    </li>
+					
+					<li>
+                        <a class="tag_m {% block contact %}{% endblock %}" href="{% url 'contact' %}">Contact</a>
+                    </li>
+
+					<li class="dropdown">
+					  <a id="user_drop" class="tag_m" href="#" data-toggle="dropdown" role="button" aria-expanded="false">User<span class="caret"></span></a>
+					  <ul class="dropdown-menu drop_1" role="menu">
+						<li><a class="tag_m" href="profile.html">Profile</a></li>
+						<li><a class="tag_m" href="list.html">Bookmark</a></li>
+						<li><a class="tag_m" href="list.html">Listed</a></li>
+					  </ul>
+                    </li>
+					
+                </ul>
+				 
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container-fluid -->
+    </nav>
+</section>
+
+{% block body %}
+{% endblock %}
+<section id="reg_home">
+ <div class="container">
+  <div class="row">
+   <div class="col-sm-8">
+    <div class="reg_home_1 clearfix">
+	 <h4>ARE YOU LOOKING FOR A HOUSE OR CUSTOMER FOR YOUR PROPERTY SALE?</h4>
+	 <p>Please click the button for register, we will become your best agent and help you for both.</p>
+	</div>
+   </div>
+   <div class="col-sm-4">
+    <div class="reg_home_2 text-right clearfix">
+	 <h5><a class="button mgt" href="#top" onclick="form_collapse()">REGISTER NOW</a></h5>
+	</div>
+   </div>
+  </div>
+ </div>
+</section>
+
+<section id="footer">
+ <div class="container">
+  <div class="row">
+   <div class="footer_1 clearfix">
+    <div class="col-sm-3">
+	 <div class="footer_1i clearfix">
+	   <a class="navbar-brand" href="index.html"><i class="fa fa-home"></i>VMJMBOE <span>PROPERTY</span></a>
+	   <p>Netus ut pede mus vestibulum montei. Mus. Pretium. Mattis habitant netus ligl ula ridiculus a nam bibendum fusce lit ora. Ac ullamcorper blandit, viverrapell ntesque scelerisque. Phasellus aptent sociosqu nec posuere.</p>
+	   <ul class="social-network social-circle">
+							<li><a href="#" class="icoRss" title="Rss"><i class="fa fa-rss"></i></a></li>
+							<li><a href="#" class="icoFacebook" title="Facebook"><i class="fa fa-facebook"></i></a></li>
+							<li><a href="#" class="icoTwitter" title="Twitter"><i class="fa fa-twitter"></i></a></li>
+							<li><a href="#" class="icoGoogle" title="Google +"><i class="fa fa-google-plus"></i></a></li>
+							<li><a href="#" class="icoLinkedin" title="Linkedin"><i class="fa fa-linkedin"></i></a></li>
+		 </ul>
+	 </div>
+	</div>
+	<div class="col-sm-3">
+	 <div class="footer_1i1 clearfix">
+       <h4 class="mgt">GET IN TOUCH</h4>
+	   <h5><i class="fa fa-map-marker"></i> OFFICE ADDRESS</h5>
+	   <p>1808 Torquent  Central pkwy ste 300 Litora  GM, USA</p>
+	   <h5><i class="fa fa-phone"></i> CALL US 24/7</h5>
+	   <p>(+123) 456 78901, (+352) 345 771121</p>
+	   <h5><i class="fa fa-envelope"></i> EMAIL ADDRESS</h5>
+	   <p>info@gmail.com</p>
+	 </div>
+	</div>
+	<div class="col-sm-3">
+	 <div class="footer_1i2 clearfix">
+       <h4 class="mgt">QUICK LINKS</h4>
+       <ul>
+	    <li><a href="#">Freequinly Ask Question</a></li>
+		<li><a href="#">About Our Company</a></li>
+		<li><a href="#">Our Professional Services</a></li>
+		<li><a href="#">Terms and Conditions</a></li>
+		<li><a href="#">Submit Your Property</a></li>
+		<li><a href="#">Become A Member</a></li>
+	   </ul>       
+	 </div>
+	</div>
+	<div class="col-sm-3">
+	 <div class="footer_1i2 clearfix">
+       <h4 class="mgt">NEWSLATTER</h4>
+       <p>Subscribe to our newsletter and we will inform your about newset projects.</p>
+	   <input class="form-control" placeholder="Enter Your Email" type="text">
+	   <h5 class="mgt"><a class="button" href="#">SUBSCRIBE</a></h5>
+	 </div>
+	</div>
+   </div>
+  </div>
+ </div>
+</section>
+
+<section id="footer_bottom" class="clearfix">
+ <div class="container">
+  <div class="row">
+   <div class="col-sm-12">
+    <div class="footer_bottom_1 text-center clearfix">
+	  <p class="mgt"> © 2013 Your Website Name. All Rights Reserved | Design by <a href="http://www.templateonweb.com">TemplateOnWeb</a></p>
+	</div>
+   </div>
+  </div>
+ </div>
+</section>
+</body>
+</html>
