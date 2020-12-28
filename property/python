@@ -1,0 +1,14 @@
+BEGIN;
+DELETE FROM "auth_group_permissions";
+DELETE FROM "auth_user_user_permissions";
+DELETE FROM "auth_user_groups";
+DELETE FROM "display_property";
+DELETE FROM "django_content_type";
+DELETE FROM "django_admin_log";
+DELETE FROM "auth_group";
+DELETE FROM "auth_permission";
+DELETE FROM "django_session";
+DELETE FROM "auth_user";
+DELETE FROM "display_profile";
+UPDATE "sqlite_sequence" SET "seq" = 0 WHERE "name" IN ('auth_group_permissions', 'auth_user_user_permissions', 'auth_user_groups', 'display_property', 'django_content_type', 'django_admin_log', 'auth_group', 'auth_permission', 'django_session', 'auth_user', 'display_profile');
+COMMIT;

@@ -4,3 +4,44 @@
 active_tab
 {% endblock %}
 
+{% load static %}
+
+{% block links %}
+<link href="{%static 'css/list.css'%}" rel="stylesheet">
+{% endblock %}
+
+{% block body %}
+<section id="prop">
+ <div class="container">
+  <div class="row">
+  	
+   <div class=" clearfix">{% for p in property %}
+    <div class="prop_3 col-sm-4">
+	 <div class="list_1_1 clearfix">
+	   <a href="list_detail.html"><img src="{% static 'img/4.jpg' %}" class="iw" alt="abc"></a>
+	    <div class="list_1_1i clearfix">
+		  <h3><a href="list_detail.html">{{ p.property_title }}</a></h3>
+	   <p><i class="fa fa-map-marker"></i> {{ p.neighborhood }},{{ p.street }},{{ p.city }},{{ p.zip_code }}</p>
+	   <h4>{{ property.price }}</h4>
+	   <ul class="nav_list">
+	     <li><span>Bedrooms:</span> {{ p.bedrooms}}</li>
+		 <li><span>Bathrooms:</span> {{ p.bathrooms}}</li>
+		 <li><span>Land size:</span> {{ p.property_size }}</li>
+	   </ul>
+	   <ul class="nav_list_1">
+	     <li><span class="date">{{ p.year }} years ago</span></li>
+		 <li><span class="comp"><a href="list_detail.html">Wishlist</a></span></li>
+		 <li><span class="det"><a href="list_detail.html">DETAILS</a></span></li>
+	   </ul>
+		</div>
+	  </div>
+	</div>
+	{% endfor %}
+	</div>
+   </div>
+   
+  </div>
+ </div>
+</section>
+
+{% endblock %}

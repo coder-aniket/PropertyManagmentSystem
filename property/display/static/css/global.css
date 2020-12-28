@@ -513,9 +513,7 @@ padding-top:12px;
   display:inline-block;
   margin-bottom:5px;
   }
-  #form .form {
-    width: 80%;
-  }
+
  }
  
 @media (min-width:992px) and (max-width:1200px) {
@@ -526,30 +524,25 @@ padding-top:12px;
   display:inline-block;
   margin-bottom:5px;
   }
-  #form .form {
-    width: 70%;
-  }
   }
 @media (min-width:1201px) and (max-width:1325px) {
 
  }
 @media only screen and (max-width: 768px) {
- #form .form {
-    width: 80%;
+  #form{
+    padding: 20% 10%;
   }
-.cd-secondary-nav.is-fixed{
-position:sticky;
-  }
+  .cd-secondary-nav.is-fixed{
+  position:sticky;
+    }
   #bs-example-navbar-collapse-1{
-  height: auto;
+    height: auto;
     position: absolute;
     background-color: white;
     right: 0px;
-    //left: 15px;
     width: 75%;
     z-index: 16;
-    border-radius: 12px;
-}
+  }
 }
 /*********************Form****************/
 .m-fadeOut {
@@ -574,26 +567,54 @@ position:sticky;
   width: 100%;
   height: 100%;
   display: grid;
+  padding: 0% 25%;
   position: fixed;
   backdrop-filter: blur(1px);
+
 }
 .form{
-  width: 50%;
+  width: 100%;
   background-color: white;
-  left: 115px;
+  /*left: 115px;*/
   border: 2px green solid;
   border-radius: 5px;
+  margin: 0px 0px;
 }
 .nav-item{
   padding: 5px 20px;
 }
-.astric , input+span{
+.astric{
   color: red;
   font-weight: 800;
+}
+input+span{
+color: red;
+font-weight: 400;
+}
+.input_warning{
+border-color: red;
 }
 .right{
   float: right;
 }
 .hide{
   display: none;
+}
+@media only screen and (max-width: 768px){
+  #form{
+    padding: 10% 10%;
+  }
+  .form{
+    overflow-y: scroll;
+  }
+}
+@media only screen and (max-width: 425px){
+  #form{
+    padding: 0% 10%;
+    padding-top: 20%;
+    padding-bottom: 5%;
+  }
+  .form{
+    overflow-y: scroll;
+  }
 }

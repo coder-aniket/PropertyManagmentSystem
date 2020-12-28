@@ -15,7 +15,7 @@
 	<script src="{%static 'js/jquery-2.1.1.min.js'%}"></script>
     <script src="{%static 'js/bootstrap.min.js'%}"></script>
     <script src="{%static 'js/global.js'%}"></script>
-    <script src="{%static 'js/validate1.js'%}"></script>
+    <script src="{%static 'js/form.js'%}"></script>
     {% block links %}
     {% endblock %}
 </head>
@@ -36,7 +36,11 @@
 	<div class="col-sm-4">
 	 <div class="top_1l text-center clearfix">
 		 <ul>
-		  <li id="formlink" class="formlink"><a><i class="fa fa-user"></i> Login / Registration</a></li>
+			{% if request.user.username %}
+			 <li> <a href="{% url 'logout' %}"><i class="fa fa-user"></i> Log Out </a></li>
+			 {% else %}
+			 <li class="formlink"> <a><i class="fa fa-user"></i> Login / Registration </a></li>
+			 {% endif %}
 		 </ul>
 	 </div>
 	</div>
@@ -57,6 +61,7 @@
  </div>
 </section>
 
+{% if not request.user.username %}
 <section id="form" class="container m-fadeOut">
 	<div class="container form" id="form1">
 	<nav class="navbar">
@@ -77,7 +82,8 @@
 	<br>
 	<div>
 		<div>
-			<form action="register" name="form" onsubmit="return validate()">
+			<form action="{% url 'register' %}" name="form" onsubmit="return validate()" method="post">
+				{% csrf_token %}
 				<div class="form-group row">
 					<div class="col-sm-12 col-md-6">
 						<label>First Name<span class="astric"><sup>*</sup></span></label>
@@ -124,7 +130,7 @@
 				<p class="astric">* is manadetory fields</p>
 			</form>
 </section>
-
+{% endif %}
 <section id="header" class="cd-secondary-nav clearfix">
 	<nav class="navbar">
         <div class="container">
@@ -136,19 +142,21 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="index.html"><i class="fa fa-home"></i>VMJMBOE <span>PROPERTY</span></a>
+                <a class="navbar-brand" href="{% url 'index' %}"><i class="fa fa-home"></i>VMJMBOE <span>PROPERTY</span></a>
             </div>
 
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav navbar-right menu">
                 	<li>
-                        <a id="login_a" class="tag_m hide" href="#" data-toggle="dropdown" role="button" aria-expanded="false">User<span class="caret"></span></a>
-					  <ul class="dropdown-menu drop_1" role="menu">
-					  	<li><a class="formlink" >Log In</a></li>
-						<li><a href="profile.html">Profile</a></li>
-						<li><a href="list.html">Bookmark</a></li>
-						<li><a href="list.html">Listed</a></li>
+                        <a id="login_a" class="tag_m hide" href="#" data-toggle="dropdown" role="button" aria-expanded="false">
+							{% if request.user.username %} {{request.user.first_name}} {% else %} User {% endif %}<span class="caret"></span></a>
+						<ul class="dropdown-menu drop_1" role="menu">
+					  	<li class="formlink"><a>Log In</a></li>
+						<li><a {% if request.user.username %} href="{% url 'profile' %} " {% else %} onclick="form_toggle()" {% endif %}>Profile</a></li>
+						<li><a href="{% url 'list' %}">Bookmark</a></li>
+						<li><a href="{% url 'list' %}">Listed</a></li>
+						{% if request.user.username %} <li> <a href="logout/"><i class="fa fa-user"></i> Log Out </a></li> {% else %} {% endif %}
 					  </ul>
                     </li>
 
@@ -157,11 +165,11 @@
                     </li>
                     
                     <li>
-                        <a class="tag_m {% block add_property %}{% endblock %}" href="{% url 'add_property' %}">Add Property</a>
+                        <a class="tag_m {% block add_property %}{% endblock %}" {% if request.user.username %} href="{% url 'add_property' %} " {% else %} onclick="form_toggle()" {% endif %}>Add Property</a>
                     </li>
 
                     <li>
-                        <a class="tag_m {% block my_property %}{% endblock %}" href="{% url 'my_property' %}">My Property</a>
+                        <a class="tag_m {% block my_property %}{% endblock %}" {% if request.user.username %} href="{% url 'my_property' %} " {% else %} onclick="form_toggle()" {% endif %}>My Property</a>
                     </li>
 
 					<li>
@@ -177,11 +185,12 @@
                     </li>
 
 					<li class="dropdown">
-					  <a id="user_drop" class="tag_m" href="#" data-toggle="dropdown" role="button" aria-expanded="false">User<span class="caret"></span></a>
+					  <a id="user_drop" class="tag_m {% block profile %} {% endblock %}" href="#" data-toggle="dropdown" role="button" aria-expanded="false">
+						  {% if request.user.username %} {{request.user.first_name}} {% else %} User {% endif %}<span class="caret"></span></a>
 					  <ul class="dropdown-menu drop_1" role="menu">
-						<li><a class="tag_m" href="profile.html">Profile</a></li>
-						<li><a class="tag_m" href="list.html">Bookmark</a></li>
-						<li><a class="tag_m" href="list.html">Listed</a></li>
+						<li><a class="tag_m" {% if request.user.username %} href="{% url 'profile' %} " {% else %} onclick="form_toggle()" {% endif %}>Profile</a></li>
+						<li><a class="tag_m" href="{% url 'list' %}">Bookmark</a></li>
+						<li><a class="tag_m" href="{% url 'list' %}">Listed</a></li>
 					  </ul>
                     </li>
 					
@@ -196,6 +205,7 @@
 
 {% block body %}
 {% endblock %}
+{% if not request.user.username %}
 <section id="reg_home">
  <div class="container">
   <div class="row">
@@ -213,7 +223,7 @@
   </div>
  </div>
 </section>
-
+{% endif %}
 <section id="footer">
  <div class="container">
   <div class="row">
@@ -279,5 +289,11 @@
   </div>
  </div>
 </section>
+<script>
+   	function form_toggle(){
+    	$("#form").toggleClass("m-fadeOut");
+	    $("#form").toggleClass("m-fadeIn");
+	  }
+</script>
 </body>
 </html>

@@ -1,15 +1,28 @@
+html,body{
+	height: 100%;
+}
+
 #admin_pannel{
-	
+	height: 100%;
+	background-color: #f4f4f4;
+}
+#admin_pannel>div{
+	display: flex;
+	height: 100%;
 }
 #side_pannel{
-	position: absolute;
-	position: fixed;
+    width: max-content;
+    height: 100%;
+    /*float: left;*/
+    /*position: fixed;*/
+    margin-left: 15px;
 }
 #main_pannel{
-	margin-left: 114px;
+	/*margin-left: 114px;*/
+	/*overflow-y: auto;*/
 }
 .row{
-	/*width: 100%;*/
+	width: 100%;
 }
 td{
 	border: 2px black solid;
@@ -17,4 +30,19 @@ td{
 }
 .hide{
 	display: none;
+}
+
+#main_pannel>div{
+	height: 70%;
+}
+.navbar{
+	height: 100%;
+}
+.col-9{
+	overflow: auto;
+	overflow-x: hidden;
+	overflow-y: auto;
+}
+.col-3{
+	height: 100%;
 }

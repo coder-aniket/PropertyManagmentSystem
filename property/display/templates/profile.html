@@ -1,0 +1,283 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %}
+Property Managment System | Profile
+{% endblock %}
+
+{% block links %}
+<link href="{%static 'css/profile.css' %}" rel="stylesheet">
+<link href="{%static 'css/list.css' %}" rel="stylesheet" >
+<script src="{%static 'js/profile.js' %}"></script>
+{% endblock %}
+
+{% block profile %}
+active_tab
+{% endblock %}
+
+{% block body %}
+<section id="admin_pannel">
+	<div class="row"><br>
+		<div class="col-3">
+			<section id="side_pannel">
+		<nav class="navbar">
+        <div class="">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-2">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+            </div>
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-2">
+                <ul class="nav menu">
+
+                	<li>
+                        <a id='1' class="tag_m active_tab">Profile</a>
+                    </li>
+
+					<li>
+                        <a id='2' class="tag_m">Enquiry</a>
+                    </li>
+
+                    <li>
+                        <a id="3" class="tag_m">Property</a>
+                    </li>
+                    
+                    <li>
+                        <a id="4" class="tag_m">Broker</a>
+                    </li>
+
+                    <li>
+                        <a id="5" class="tag_m">User</a>
+                    </li>
+                    
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container-fluid -->
+    	</nav>
+	</section>
+		</div>
+	
+	<div class="col-9">
+		<section id="main_pannel" class="container">
+			<br>
+
+			<div id="profile" class="container">
+				First name: {{ request.user.first_name }}<br>
+				Last Name: {{ request.user.last_name }}<br>
+				Email: {{ request.user.email }}<br>
+				Contact: {{ request.Profile.contact }}<br>
+			</div>
+
+
+			<div id="enquiry" class="container hide">
+				<section id="prop" class="container">
+					 <div class="">
+					  <div class="row">
+					   <div class="prop_3 clearfix">
+					    <div class="col-sm-4">
+						 <div class="list_1_1 clearfix">
+						   <a href="list_detail.html"><img src="{% static 'img/4.jpg' %}" class="iw" alt="abc"></a>
+						    <div class="list_1_1i clearfix">
+							  <h3><a href="list_detail.html">Popular apartment in the city delhi</a></h3>
+						   <p><i class="fa fa-map-marker"></i> 122 N Morgan St, Chicago, IL 60607, USA</p>
+						   <h4>$ 1,200.000</h4>
+						   <ul class="nav_list">
+						     <li><span>Bedrooms:</span> 3</li>
+							 <li><span>Bathrooms:</span> 2</li>
+							 <li><span>Land size:</span> 110 ft²</li>
+						   </ul>
+						   <ul class="nav_list_1">
+						     <li><span class="date">2 years ago</span></li>
+							 <li><span class="comp"><a href="list_detail.html">Wishlist</a></span></li>
+							 <li><span class="det"><a href="list_detail.html">Open</a></span></li>
+						   </ul>
+							</div>
+						  </div>
+						</div>
+						<div class="col-sm-4">
+						 <div class="list_1_1 clearfix">
+						   <a href="list_detail.html"><img src="{% static 'img/5.jpg' %}" class="iw" alt="abc"></a>
+						    <div class="list_1_1i clearfix">
+							  <h3><a href="list_detail.html">Popular apartment in the city delhi</a></h3>
+						   <p><i class="fa fa-map-marker"></i> 122 N Morgan St, Chicago, IL 60607, USA</p>
+						   <h4>$ 1,300.000</h4>
+						   <ul class="nav_list">
+						     <li><span>Bedrooms:</span> 3</li>
+							 <li><span>Bathrooms:</span> 2</li>
+							 <li><span>Land size:</span> 110 ft²</li>
+						   </ul>
+						   <ul class="nav_list_1">
+						     <li><span class="date">2 years ago</span></li>
+							 <li><span class="comp"><a href="list_detail.html">Wishlist</a></span></li>
+							 <li><span class="det"><a href="list_detail.html">Open</a></span></li>
+						   </ul>
+							</div>
+						  </div>
+						</div>
+						<div class="col-sm-4">
+						 <div class="list_1_1 clearfix">
+						   <a href="list_detail.html"><img src="{% static 'img/6.jpg' %}" class="iw" alt="abc"></a>
+						    <div class="list_1_1i clearfix">
+							  <h3><a href="list_detail.html">Popular apartment in the city delhi</a></h3>
+						   <p><i class="fa fa-map-marker"></i> 122 N Morgan St, Chicago, IL 60607, USA</p>
+						   <h4>$ 1,900.000</h4>
+						   <ul class="nav_list">
+						     <li><span>Bedrooms:</span> 3</li>
+							 <li><span>Bathrooms:</span> 2</li>
+							 <li><span>Land size:</span> 110 ft²</li>
+						   </ul>
+						   <ul class="nav_list_1">
+						     <li><span class="date">2 years ago</span></li>
+							 <li><span class="comp"><a href="list_detail.html">Wishlist</a></span></li>
+							 <li><span class="det"><a href="list_detail.html">Open</a></span></li>
+						   </ul>
+							</div>
+						  </div>
+						</div>
+					   </div>
+					   <div class="prop_3 clearfix">
+					    <div class="col-sm-4">
+						 <div class="list_1_1 clearfix">
+						   <a href="list_detail.html"><img src="{% static 'img/7.jpg' %}" class="iw" alt="abc"></a>
+						    <div class="list_1_1i clearfix">
+							  <h3><a href="list_detail.html">Popular apartment in the city delhi</a></h3>
+						   <p><i class="fa fa-map-marker"></i> 122 N Morgan St, Chicago, IL 60607, USA</p>
+						   <h4>$ 1,200.000</h4>
+						   <ul class="nav_list">
+						     <li><span>Bedrooms:</span> 3</li>
+							 <li><span>Bathrooms:</span> 2</li>
+							 <li><span>Land size:</span> 110 ft²</li>
+						   </ul>
+						   <ul class="nav_list_1">
+						     <li><span class="date">2 years ago</span></li>
+							 <li><span class="comp"><a href="list_detail.html">Wishlist</a></span></li>
+							 <li><span class="det"><a href="list_detail.html">Open</a></span></li>
+						   </ul>
+							</div>
+						  </div>
+						</div>
+						<div class="col-sm-4">
+						 <div class="list_1_1 clearfix">
+						   <a href="list_detail.html"><img src="{% static 'img/8.jpg' %}" class="iw" alt="abc"></a>
+						    <div class="list_1_1i clearfix">
+							  <h3><a href="list_detail.html">Popular apartment in the city delhi</a></h3>
+						   <p><i class="fa fa-map-marker"></i> 122 N Morgan St, Chicago, IL 60607, USA</p>
+						   <h4>$ 1,300.000</h4>
+						   <ul class="nav_list">
+						     <li><span>Bedrooms:</span> 3</li>
+							 <li><span>Bathrooms:</span> 2</li>
+							 <li><span>Land size:</span> 110 ft²</li>
+						   </ul>
+						   <ul class="nav_list_1">
+						     <li><span class="date">2 years ago</span></li>
+							 <li><span class="comp"><a href="list_detail.html">Wishlist</a></span></li>
+							 <li><span class="det"><a href="list_detail.html">Open</a></span></li>
+						   </ul>
+							</div>
+						  </div>
+						</div>
+						<div class="col-sm-4">
+						 <div class="list_1_1 clearfix">
+						   <a href="list_detail.html"><img src="{% static 'img/9.jpg' %}" class="iw" alt="abc"></a>
+						    <div class="list_1_1i clearfix">
+							  <h3><a href="list_detail.html">Popular apartment in the city delhi</a></h3>
+						   <p><i class="fa fa-map-marker"></i> 122 N Morgan St, Chicago, IL 60607, USA</p>
+						   <h4>$ 1,900.000</h4>
+						   <ul class="nav_list">
+						     <li><span>Bedrooms:</span> 3</li>
+							 <li><span>Bathrooms:</span> 2</li>
+							 <li><span>Land size:</span> 110 ft²</li>
+						   </ul>
+						   <ul class="nav_list_1">
+						     <li><span class="date">2 years ago</span></li>
+							 <li><span class="comp"><a href="list_detail.html">Wishlist</a></span></li>
+							 <li><span class="det"><a href="list_detail.html">Open</a></span></li>
+						   </ul>
+							</div>
+						  </div>
+						</div>
+					   </div>
+					  </div>
+					 </div>
+					</section>
+			</div>
+
+			<div id="property" class="container hide">
+				<div class="container">
+					<table>
+						<tr>
+							<td>Property Id
+								<button type="button" class="btn btn-info btn-sm">
+					          		<span class="glyphicon glyphicon-sort"></span>
+					          	</button>
+					         </td>
+					        <td>Title
+					        	<button type="button" class="btn btn-info btn-sm">
+					          		<span class="glyphicon glyphicon-sort"></span>
+					          	</button>
+					         </td>
+					        <td>Location
+					        	<button type="button" class="btn btn-info btn-sm">
+					          		<span class="glyphicon glyphicon-sort"></span>
+					          	</button>
+					        </td>
+					        <td>Price
+					        	<button type="button" class="btn btn-info btn-sm">
+					          		<span class="glyphicon glyphicon-sort"></span>
+					          	</button>
+					        </td>
+					        <td>Area
+					        	<button type="button" class="btn btn-info btn-sm">
+					          		<span class="glyphicon glyphicon-sort"></span>
+					          	</button>
+					        </td>
+					        <td>Property Type
+					        	<button type="button" class="btn btn-info btn-sm">
+					          		<span class="glyphicon glyphicon-sort"></span>
+					          	</button>
+					        </td>
+					        <td>Neighbour Hood
+					        	<button type="button" class="btn btn-info btn-sm">
+					          		<span class="glyphicon glyphicon-sort"></span>
+					          	</button>
+					        </td>
+					        <td>Bedrooms
+					        	<button type="button" class="btn btn-info btn-sm">
+					          		<span class="glyphicon glyphicon-sort"></span>
+					          	</button>
+					        </td>
+					        <td>Bathrooms<button type="button" class="btn btn-info btn-sm">
+					          		<span class="glyphicon glyphicon-sort"></span>
+					          	</button>
+					        </td>
+					        <td>Year
+					        	<button type="button" class="btn btn-info btn-sm">
+					          		<span class="glyphicon glyphicon-sort"></span>
+					          	</button>
+					        </td>
+					    </tr>
+					</table>
+				</div>
+			</div>
+			<div id="user" class="container hide">
+				<div class="container">
+					<table>
+						<tr><td>User Id</td><td>Name</td><td>Email</td><td>Contact</td><td>Default Location</td></tr>
+					</table>
+				</div>
+			</div>
+		</section>
+	</div>
+		
+	</div>
+</section>
+
+{% endblock %}

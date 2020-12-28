@@ -1,0 +1,136 @@
+{% extends 'base.html' %}
+
+{% block list %}
+active_tab
+{% endblock %}
+
+{% load static %}
+
+{% block links %}
+<link href="{%static 'css/list.css'%}" rel="stylesheet">
+{% endblock %}
+
+{% block body %}
+
+<section id="booking">
+ <div class="container">
+ <form action="{% url 'test' %}" method="POST">
+ 	{% csrf_token %}
+  <div class="row">
+   <div class="booking_1 clearfix">
+    <div class="col-sm-3">
+	 <div class="booking_1i clearfix">
+	    <select name="offer_type" class="form-control">
+		  <option value="all">Any Status</option>
+		  <option>For Rent</option>
+		  <option>For Sale</option>
+        </select>
+	 </div>
+	</div>
+	<div class="col-sm-3">
+	 <div class="booking_1i clearfix">
+	    <select name="city" class="form-control">
+		  <option value="all">Any City</option>
+		  <option>New York</option>
+		  <option>Sydney</option>
+		  <option>Washington</option>
+        </select>
+	 </div>
+	</div>
+	<div class="col-sm-3">
+	 <div class="booking_1i clearfix">
+	    <select name="bedrooms" class="form-control">
+		  <option value="all">Bedrooms</option>
+		  <option>1</option>
+		  <option>2</option>
+		  <option>3+</option>
+        </select>
+	 </div>
+	</div>
+	<div class="col-sm-3">
+	 <div class="booking_1i clearfix">
+	    <select name="sort" class="form-control">
+		  <option value="all">Sort</option>
+		  <option>Price</option>
+		  <option>Bedroom</option>
+		  <option>Date</option>
+        </select>
+	 </div>
+	</div>
+   </div>
+   <div class="booking_1 clearfix">
+    <div class="col-sm-3">
+	 <div class="booking_1i clearfix">
+	    <select name="property_type" class="form-control">
+		  <option value="all">Any Type</option>
+		  <option value="all">House</option>
+		  <option>Office</option>
+		  <option>Appartment</option>
+        </select>
+	 </div>
+	</div>
+	<div class="col-sm-3">
+	 <div class="booking_1i clearfix">
+	    <input name="min_price" class="form-control" placeholder="Min Price" type="text">
+	 </div>
+	</div>
+	<div class="col-sm-3">
+	 <div class="booking_1i clearfix">
+	    <input name="max_price" class="form-control" placeholder="Max Price" type="text">
+	 </div>
+	</div>
+	<div class="col-sm-3">
+	 <div class="booking_1i clearfix">
+	    <h5 class="mgt"><a  class="button mgt" onclick="submit()">SEARCH</a></h5>
+	    <input type="submit" name="submit" style="display: none">
+	 </div>
+	</div>
+   </div>
+  </div>
+ </form>
+ </div>
+</section>
+
+<script type="text/javascript">
+function submit() {
+		$("input[type='submit']").trigger("click");
+	}	
+</script>
+
+<section id="prop">
+ <div class="container">
+  <div class="row">
+  	
+   <div class=" clearfix">
+   	{% for p in property %}
+    <div class="prop_3 col-sm-4">
+	 <div class="list_1_1 clearfix">
+	   <a><img src="/static/images/{{p.id}}/1.jpg" class="iw" alt="VMJMBOE PROPERTY"></a>
+	    <div class="list_1_1i clearfix">
+		  <div class="overflow tile_title"><h3><a href="list_detail.html">{{ p.property_title }}</a></h3></div>
+	   	  <div class="overflow tile_address"><i class="fa fa-map-marker"></i>
+	   	  {{ p.neighborhood }},{{ p.street }},{{ p.city }},{{ p.zip_code }}
+	   	  </div>
+	   <h4>{{ p.price }}</h4>
+	   <ul class="nav_list">
+	     <li><span>Bedrooms:</span> {{ p.bedrooms}}</li>
+		 <li><span>Bathrooms:</span> {{ p.bathrooms}}</li>
+		 <li><span>Land size:</span> {{ p.property_size }}</li>
+	   </ul>
+	   <ul class="nav_list_1">
+	     <li><span class="date">{{ p.year }} years ago</span></li>
+		 <li><span class="comp"><a href="">Wishlist</a></span></li>
+		 <li><span class="det"><a href="/list_details/{{p.id}}">DETAILS</a></span></li>
+	   </ul>
+		</div>
+	  </div>
+	</div>
+	{% endfor %}
+	</div>
+   </div>
+   
+  </div>
+ </div>
+</section>
+
+{% endblock %}

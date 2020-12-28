@@ -80,6 +80,9 @@ font-weight:bold;
   padding-bottom:20px;
   margin-top:20px;
  }
+ .list_detail_lm3i1{
+  text-align: left;
+ }
 .list_detail_lm3i1 p{
  padding-left:15px;
  padding-right:15px; 
@@ -284,6 +287,9 @@ text-align: center;
 textarea{
   width: 90%;
   height: 250px;
+}
+.left{
+ text-align-last: left;
 }
 
 @media (min-width:768px) and (max-width:991px) {

@@ -1,0 +1,38 @@
+{% block body%}
+<section id="prop">
+					 <div class="container">
+					  <div class="row">
+					  	
+					   <div class=" clearfix">
+					   	{% for e in enquiry %}
+					    <div class="prop_3 col-sm-4">
+						 <div class="list_1_1 clearfix">
+						   <a href="/list_details/{{e.property_id.id}}"><span class="message">{{ e.message }}</span></a>
+						    <div class="list_1_1i clearfix">
+							  <div class="overflow tile_title"><h3><a href="/list_details/{{e.property_id.id}}/{{e.id}}">{{ e.property_id.property_title }}</a></h3></div>
+						   	  <div class="overflow tile_address"><i class="fa fa-map-marker"></i>
+						   	  {{ e.property_id.neighborhood }},{{ e.property_id.street }},{{ e.property_id.city }},{{ e.property_id.zip_code }}
+						   	  </div>
+						   <h4>{{ e.property_id.price }}</h4>
+						   <ul class="nav_list">
+						     <li><span>Bedrooms:</span> {{ e.property_id.bedrooms}}</li>
+							 <li><span>Bathrooms:</span> {{ e.property_id.bathrooms}}</li>
+							 <li><span>Land size:</span> {{ e.property_id.property_size }}</li>
+						   </ul>
+						   
+						   <ul class="nav_list_1">
+						     <li><span class="date">{{ e.property_id.year }} years ago</span></li>
+							 <li><span class="comp"><a href="">CLOSE</a></span></li>
+							 <li><span class="det"><a href="">SEEN</a></span></li>
+						   </ul>
+							</div>
+						  </div>
+						</div>
+						{% endfor %}
+						</div>
+					   </div>
+					   
+					  </div>
+					 </div>
+					</section>
+{% endblock %}

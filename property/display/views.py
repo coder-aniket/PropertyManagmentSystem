@@ -1,5 +1,5 @@
 from django.shortcuts import render
-
+from .property import Feature
 # Create your views here.
 def index(request):
    return render(request,'index.html')
@@ -11,6 +11,7 @@ def my_property(request):
    return render(request,'my_property.html')
 
 def list(request):
+
    return render(request,'list.html')
 
 def list_details(request):
@@ -25,8 +26,14 @@ def contact(request):
 def broker(request):
    return render(request,'broker.html')
 
+def profile(request):
+   return render(request,'profile.html')
+
 def admin(request):
    return render(request,'admin.html')
 
 def test(request):
-   return render(request,'test.html')
+   proper = Feature.objects.all()
+   context = {'property': proper}
+   # print(p[2].bathrooms)
+   return render(request,'test.html',context)
