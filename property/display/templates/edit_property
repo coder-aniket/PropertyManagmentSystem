@@ -1,9 +1,0 @@
-{% extends 'add_property.html' %}
-
-{% block add_property %}
-active_tab
-{% endblock %}
-
-{% block list %}
-
-{% endblock %}

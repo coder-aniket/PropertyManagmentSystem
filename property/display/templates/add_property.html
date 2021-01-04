@@ -16,7 +16,7 @@ active_tab
 
 {% block body%}
 <section id="list_detail">
-<form enctype = "multipart/form-data" action="{% url 'addproperty' %}" method="POST">
+<form enctype = "multipart/form-data" {% if pid %} action="/addproperty/{{pid}}/"{% else %} action="/addproperty/" {% endif %} method="POST">
 	{% csrf_token %}
  <div class="container">
   <div class="row">
@@ -24,43 +24,81 @@ active_tab
 	 <div class="list_detail_lm clearfix">
 	   <div class="list_detail_lm1 clearfix">
 	     <div class="carousel slide article-slide" id="article-photo-carousel">
+	     	<h3>Property Title</h3><br>
+			<input type="text" placeholder="Property Title" class="form-control" name="property_title" value="{{property.property_title}}"><br>
+		  <!-- Wrapper for slides -->
+		  <div class="carousel-inner cont-slider">
+		  	{% if img %}
+		  	{% for i in img %}
+		    <div class="item img_slider">
+		      <img class="slider_image" alt="" title="" src="/media/{{i.1.img}}">
 
-	<input type="text" name="property_title">
-  <!-- Wrapper for slides -->
-  <div class="carousel-inner cont-slider">
-
-    <div class="item active">
-      <img alt="" title="" src="{% static 'img/42.jpg' %}">
-    </div>
-    <div class="item">
-      <img alt="" title="" src="{% static 'img/43.jpg' %}">
-    </div>
-    <div class="item">
-      <img alt="" title="" src="{% static 'img/44.jpg' %}">
-    </div>
-    <div class="item">
-      <img alt="" title="" src="{% static 'img/45.jpg' %}">
-    </div>
-    <i class="fa fa-plus-square-o" aria-hidden="true" onclick="img_submit()"></i>
-    <input id="img_submit" type="file" name="property_image" multiple>
-  </div>
-  <!-- Indicators -->
-  <ol class="carousel-indicators">
-    <li class="" data-slide-to="0" data-target="#article-photo-carousel">
-      <img alt="" src="{% static 'img/42.jpg' %}">
-    </li>
-    <li class="" data-slide-to="1" data-target="#article-photo-carousel">
-      <img alt="" src="{% static 'img/43.jpg' %}">
-    </li>
-    <li class="" data-slide-to="2" data-target="#article-photo-carousel">
-      <img alt="" src="{% static 'img/44.jpg' %}">
-    </li>
-    <li class="active" data-slide-to="3" data-target="#article-photo-carousel">
-      <img alt="" src="{% static 'img/45.jpg' %}">
-    </li>
-  </ol>
-</div>
+		    </div>
+		    {% endfor %}
+		  	{% else %}
+		    <div class="item active">
+		      <img alt="" title="" src="{% static 'img/42.jpg' %}">
+		    </div>
+		    <div class="item">
+		      <img alt="" title="" src="{% static 'img/43.jpg' %}">
+		    </div>
+		    <div class="item">
+		      <img alt="" title="" src="{% static 'img/44.jpg' %}">
+		    </div>
+		    <div class="item">
+		      <img alt="" title="" src="{% static 'img/45.jpg' %}">
+		    </div>
+		    {% endif %}
+		    <i class="fa fa-plus-square-o" aria-hidden="true" onclick="img_submit()"></i>
+		    <input id="img_submit" type="file" name="property_image" multiple>
+		    <input id="delete_img" class="hide" type="text" name="delete_img">
+		  </div>
+		  <!-- Indicators -->
+		  <ol class="carousel-indicators scroll">
+		  	{% if img %}
+		  	{% for i in img %}
+		    <li class="" data-slide-to="{{i.0}}" data-target="#article-photo-carousel">
+		      <img alt="" src="/media/{{i.1.img}}">
+		      <img id="cross" name="/media/{{i.1.img}}" class="cross" src="{% static 'img/times-solid.svg' %}">
+		    </li>
+		    {% endfor %}
+		    {% else %}
+		    <li class="" data-slide-to="0" data-target="#article-photo-carousel">
+		      <img alt="" src="{% static 'img/42.jpg' %}">
+		    </li>
+		    <li class="" data-slide-to="1" data-target="#article-photo-carousel">
+		      <img alt="" src="{% static 'img/43.jpg' %}">
+		    </li>
+		    <li class="" data-slide-to="2" data-target="#article-photo-carousel">
+		      <img alt="" src="{% static 'img/44.jpg' %}">
+		    </li>
+		    <li class="active" data-slide-to="3" data-target="#article-photo-carousel">
+		      <img alt="" src="{% static 'img/45.jpg' %}">
+		    </li>
+		    {% endif %}
+		  </ol>
+		</div>
 	   </div>
+	   <script type="text/javascript">
+		  	$(document).ready(function(){
+		  		var del_img = "";
+		  		$(".cross").click(function(){
+		  			$(this).toggleClass(".cross_expand");
+		  			if(del_img.includes($(this).attr("name").replace("/media/","")))
+		  			{
+		  				$(this).attr('id','cross_expand');
+		  				del_img=del_img.replace(" + " + $(this).attr("name").replace("/media/",""),"");
+		  				$("#delete_img").attr('value',del_img);
+		  			}
+		  			else
+		  			{
+		  				$(this).attr('id','cross');
+		  				del_img = del_img +" + "+ $(this).attr("name").replace("/media/","");
+						$("#delete_img").attr('value',del_img);
+					}
+		  		});
+		  	});
+		  </script>
 	   <div class="list_detail_lm2 clearfix">
 	    <div class="col-sm-6">
 		 <div class="list_detail_lm2l">
@@ -72,11 +110,25 @@ active_tab
 		   <li><span>Property size:</span></li>
 		  </ul>
 		  <ul>
-		  	<li><input type="text" name="property_type"></li>
-		  	<li><input type="text" name="city"></li>
-		  	<li><input type="text" name="neighborhood"></li>
-		  	<li><input type="text" name="bedrooms"></li>
-		  	<li><input type="text" name="property_size"></li>
+		  	<li>
+		  		<select name="property_type" class="form-control">
+				  <option disabled>Any Type</option>
+				  <option {% if property.property_type == "House" %}selected{% endif %}>House</option>
+				  <option {% if property.property_type == "Office" %}selected{% endif %}>Office</option>
+				  <option {% if property.property_type == "Appartment" %}selected{% endif %}>Appartment</option>
+		        </select>
+    		</li>
+		  	<li>
+		  		<select name="city" class="form-control">
+				  <option disabled>Any City</option>
+				  <option>New York</option>
+				  <option>Sydney</option>
+				  <option>Washington</option>
+		        </select>
+		  	</li>
+		  	<li><input type="text" name="neighborhood" class="form-control" value="{{property.neighborhood}}"></li>
+		  	<li><input type="text" name="bedrooms" class="form-control" value="{{property.bedrooms}}"></li>
+		  	<li><input type="text" name="property_size" class="form-control" value="{{property.property_size}}"></li>
 		  </ul>
 		 </div>
 		</div>
@@ -90,11 +142,17 @@ active_tab
 		   <li><span>Year:</span></li>
 		  </ul>
 		  <ul>
-		  	<li><input type="text" name="offer_type"></li>
-		  	<li><input type="text" name="zip_code"></li>
-		  	<li><input type="text" name="street"></li>
-		  	<li><input type="text" name="bathrooms"></li>
-		  	<li><input type="text" name="year"></li>
+		  	<li>
+		  		<select name="offer_type" class="form-control">
+				  <option disabled>Any Status</option>
+				  <option {% if property.offer_type == "For Rent" %}selected{% endif %}>For Rent</option>
+				  <option {% if property.offer_type == "For Sale" %}selected{% endif %}>For Sale</option>
+		        </select>
+		    </li>
+		  	<li><input type="text" name="zip_code" class="form-control" value="{{property.zip_code}}"></li>
+		  	<li><input type="text" name="street" class="form-control" value="{{property.street}}"></li>
+		  	<li><input type="text" name="bathrooms" class="form-control" value="{{property.bathrooms}}"></li>
+		  	<li><input type="text" name="year" class="form-control" value="{{property.year}}"></li>
 		  </ul>
 		 </div>
 		</div>
@@ -103,43 +161,42 @@ active_tab
 	    <div class="list_detail_lm3i clearfix">
 		   <h3 class="text-center">FEATURES</h3>
 		</div>
-		<div class="list_detail_lm3i1 clearfix">
+		<div class="list_detail_lm3i1 clearfix left">
 		   <div class="col-sm-4">
 			  <div class="list_detail_lm3i1i clearfix">
 				 <ul> 
-				  <li><input type="checkbox" name="Attic"> Attic</li>
-				  <li><input type="checkbox" name="Garden"> Garden</li>
-				  <li><input type="checkbox" name="Microwave"> Microwave</li>
+				  <li><input type="checkbox" name="Attic" {% if property.Attic %}checked{% endif %}> Attic</li>
+				  <li><input type="checkbox" name="Garden" {% if property.Garden %}checked{% endif %}> Garden</li>
+				  <li><input type="checkbox" name="Microwave" {% if property.Microwave %}checked{% endif %}> Microwave</li>
 				 </ul>
 			  </div>
 		</div>
 		   <div class="col-sm-4">
 			  <div class="list_detail_lm3i1i clearfix">
 				 <ul> 
-				  <li><input type="checkbox" name="Dishwasher"> Dishwasher</li>
-				  <li><input type="checkbox" name="Gym"> Gym</li>
-				  <li><input type="checkbox" name="Patio"> Patio</li>
+				  <li><input type="checkbox" name="Dishwasher" {% if property.Dishwasher %}checked{% endif %}> Dishwasher</li>
+				  <li><input type="checkbox" name="Gym" {% if property.Gym %}checked{% endif %}> Gym</li>
+				  <li><input type="checkbox" name="Patio" {% if property.Patio %}checked{% endif %}> Patio</li>
 				 </ul>
 			  </div>
 		   </div>
 		   <div class="col-sm-4">
 			  <div class="list_detail_lm3i1i clearfix">
 				 <ul> 
-				  <li><input type="checkbox" name="Fireplace"> Fireplace</li>
-				  <li><input type="checkbox" name="High ceilings"> High ceilings</li>
-				  <li><input type="checkbox" name="Swimming Pool"> Swimming Pool</li>
+				  <li><input type="checkbox" name="Fireplace" {% if property.Fireplace %}checked{% endif %}> Fireplace</li>
+				  <li><input type="checkbox" name="High_ceilings" {% if property.High_ceiling %}checked{% endif %}> High ceilings</li>
+				  <li><input type="checkbox" name="Swimming_Pool" {% if property.Swimming_pool %}checked{% endif %}> Swimming Pool</li>
 				 </ul>
 			  </div>
 		    </div>
 		</div>
-	    
 	   </div>
 	   <div class="list_detail_lm3 clearfix">
 	    <div class="list_detail_lm3i clearfix">
 		   <h3 class="text-center">DETAILS</h3>
 		</div>
 		<div class="list_detail_lm3i1 clearfix">
-		 <textarea placeholder="Add Description..." name="details"></textarea>
+		 <textarea id="details" placeholder="Add Description ..." name="details" class="form-control">{{property.details}}</textarea>
 		 <ul class="social-network social-circle">
                         <li><a href="#" class="icoRss" title="Rss"><i class="fa fa-rss"></i></a></li>
                         <li><a href="#" class="icoFacebook" title="Facebook"><i class="fa fa-facebook"></i></a></li>
@@ -156,22 +213,31 @@ active_tab
 	 <div class="list_detail_rm clearfix">
 	  <div class="list_detail_rm_1 clearfix">
 	    <ul>
-		 <li class="bg_2" style="background-color: green"><i class="fa fa-rupee"></i><input type="integer" name="price"></li>
-		 <li class="bg_2"><i class="fa fa-phone"></i><input type="integer" name="contact"></li>
-		 <li class="bg_2"><i class="fa fa-map-marker"></i><input type="text" name="location"></li>
+		 <li class="bg_2" style="background-color: green"><i class="fa fa-rupee"></i><input type="integer" name="price" class="form-control" value="{{property.price}}"></li>
+		 <li class="bg_2"><i class="fa fa-phone"></i><input type="integer" name="contact" class="form-control" value="{{property.contact}}"></li>
+		 <li class="bg_2"><i class="fa fa-map-marker"></i><input type="text" name="location" class="form-control" value="{{property.location}}"></li>
 		 
 		</ul>
 	  </div>
 	 </div>
 	 <br>
-	 <input type="submit" name="submit" value="Submit" class="btn btn-success btn-block">
+	 <input type="submit" name="submit" value="Submit" class="btn btn-success btn-block"  class="form-control">
 	 <br>
-	 <input type="submit" name="submit" value="Edit" class="btn btn-success btn-block">
+	 <!-- {% if property %}
+	 {% if pid %}
+	 <input type="submit" name="submit" value="Edit" class="btn btn-success btn-block"  class="form-control">
+	 {% endif %}
+	 {% endif%} -->
 	</div>
   </div>
  </div>
 </form>
 </section>
-
+<script type="text/javascript">
+  	$(document).ready(function(){
+  		$(".item").first().addClass("active");
+  		$(".carousel-indicators li").first().addClass("active");
+  	});
+  </script>
 
 {% endblock %}

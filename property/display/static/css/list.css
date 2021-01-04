@@ -51,7 +51,8 @@ margin-bottom:15px;
 
 .list_1_1i{
 background:#fff;
-padding:15px 10px 30px 10px;  
+padding:15px 10px 30px 10px; 
+height: 300px; 
   }
 .list_1_1i h4{
   text-align:center;
@@ -96,6 +97,25 @@ margin-top:15px;
 .prop_3{
   margin-top:20px;
   }
+
+.tile_title{
+  height: 76px;
+  overflow: hidden;
+}
+.tile_address{
+  height: 20px;
+  overflow: hidden;
+}
+.iw{
+  height: 252px;
+  width: 360px;
+  display: block;
+  text-align: center;
+}
+.sold{
+  background-color: #76a11fc9;
+}
+
 /*********************contact_end****************/
 
 @media screen and (max-width : 767px){
@@ -123,6 +143,22 @@ margin-top:15px;
 @media (min-width:1201px) and (max-width:1325px) {
 
  }
+html,body{
+  width: 100%;
+}
 
 
-
+.comp .wishlist{
+background: #bf1f1f;
+}
+.arrow{
+  height: 40px;
+  padding: 5px;
+  margin: 15px;
+  margin-right: 25px; 
+  background-color: grey;
+}
+.navigation{
+  width: 100%;
+  text-align: right; 
+}

@@ -2,11 +2,16 @@ from django.db import models
 from django.shortcuts import render,HttpResponse,redirect
 from django.contrib.auth.models import User
 import os
+
+p_choices = [('Apartment','Apartment'),('House','House'),('Office','Office'),('Land','Land')]   # property type choice
+o_choices = [('For Rent','For Rent'),('For Sale','For Sale')]                                   # offer type choice
+s_choices = [('Available','Available'),('Sold','Sold')]                                         # status choice
+
 class Property(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.RESTRICT)
     property_title = models.CharField(max_length=30,null=False)
-    property_type = models.CharField(max_length=10,null=False)
-    offer_type = models.CharField(max_length=25)
+    property_type = models.CharField(max_length=10,null=False,choices=p_choices)
+    offer_type = models.CharField(max_length=25,choices=o_choices)
     city = models.CharField(max_length=15,null=False)
     zip_code = models.IntegerField(null=False)
     neighborhood = models.CharField(max_length=25,null=False)
@@ -19,6 +24,8 @@ class Property(models.Model):
     location = models.CharField(max_length=15,null=False)
     details = models.TextField()
     contact = models.IntegerField(null=True)
+    status = models.CharField(max_length=10,default="Available",choices=s_choices)
+    # buyer = models.ForeignKey(User, on_delete=models.RESTRICT)
 
     def __str__(self):
         return self.property_title
@@ -34,11 +41,13 @@ class Feature(Property):
     Patio = models.BooleanField(default=False)
     Fireplace = models.BooleanField(default=False)
     High_ceilings = models.BooleanField(default=False)
-    Swimmin_Pool = models.BooleanField(default=False)
+    Swimming_Pool = models.BooleanField(default=False)
     # image = models.FileField(upload_to='display/images/')
+    class Meta:
+        verbose_name = 'Properties'
+        verbose_name_plural ='Properties'
 
-
-    def add_property(request):
+    def add_property(request,pid):
         if request.method == "POST":
             property_title = request.POST['property_title']
             property_type = request.POST['property_type']
@@ -56,6 +65,7 @@ class Feature(Property):
             details = request.POST['details']
             contact = request.POST['contact']
 
+            # print(property_type)
             if request.POST.get('Attic')=="on":
                 Attic = True
             else:
@@ -88,27 +98,63 @@ class Feature(Property):
                 High_ceilings = True
             else:
                 High_ceilings = False
-            if request.POST.get('Swimmin_Pool')=="on":
-                Swimmin_Pool = True
+            if request.POST.get('Swimming_Pool')=="on":
+                Swimming_Pool = True
             else:
-                Swimmin_Pool = False
+                Swimming_Pool = False
+            # print(pid)
+            if(pid):
+                del_file = request.POST['delete_img'].split(' + ')
+                f = Feature.objects.filter(id=pid)
+                # print(f)
+                f.update(user_id=request.user.id, property_title=property_title, property_type=property_type,
+                offer_type=offer_type, city=city, zip_code=zip_code, neighborhood=neighborhood,
+                street=street,
+                bedrooms=bedrooms, bathrooms=bathrooms, property_size=property_size, year=year, price=price,
+                location=location, details=details, contact=contact, Attic=Attic, Garden=Garden,
+                Microwave=Microwave,
+                Dishwasher=Dishwasher, Gym=Gym, Patio=Patio, Fireplace=Fireplace,
+                High_ceilings=High_ceilings,
+                Swimming_Pool=Swimming_Pool)
+                f[0].refresh_from_db()
+                imgtable.add_image(request, f[0])
 
-            f=Feature(user_id=request.user.id,property_title=property_title,property_type=property_type,
-                      offer_type=offer_type,city=city,zip_code=zip_code,neighborhood=neighborhood,street=street,
-                      bedrooms=bedrooms,bathrooms=bathrooms,property_size=property_size,year=year,price=price,
-                      location=location,details=details,contact=contact,Attic=Attic,Garden=Garden,Microwave=Microwave,
-                      Dishwasher=Dishwasher,Gym=Gym,Patio=Patio,Fireplace=Fireplace,High_ceilings=High_ceilings,
-                      Swimmin_Pool=Swimmin_Pool)
-            f.save()
-            count=0
-            image = request.FILES.getlist('property_image')
-            os.mkdir("display/images/" + str(f.property_ptr_id))
-            for i in range(len(image)):
-                count = count + 1
-                fil = open("display/images/"+str(f.property_ptr_id)+"/"+str(count)+".jpg",'wb+')
-                fil.write(image[i].read())
-                fil.close()
+                for delf in del_file:
+                    if delf:
+                        print(delf)
+                        img=imgtable.objects.get(img=delf).delete()
+                        print(img)
+            else:
+                f = Feature(user_id=request.user.id,property_title=property_title,property_type=property_type,
+                          offer_type=offer_type,city=city,zip_code=zip_code,neighborhood=neighborhood,street=street,
+                          bedrooms=bedrooms,bathrooms=bathrooms,property_size=property_size,year=year,price=price,
+                          location=location,details=details,contact=contact,Attic=Attic,Garden=Garden,Microwave=Microwave,
+                          Dishwasher=Dishwasher,Gym=Gym,Patio=Patio,Fireplace=Fireplace,High_ceilings=High_ceilings,
+                          Swimming_Pool=Swimming_Pool)
+                f.save()
+
+                imgtable.add_image(request,f)
+
+        response = redirect('my_property')
+        return response
 
 
-            response = redirect('index')
-            return response
+    def sold(request,pid):
+        property = Feature.objects.get(id=pid)
+        property.status="Sold"
+        property.save()
+        response = redirect('my_property')
+        return response
+
+class imgtable(models.Model):
+    property = models.ForeignKey(Feature,on_delete=models.CASCADE)
+    img = models.FileField(upload_to='images/')
+
+    # def __str__(self):
+    # #     print(self.property)
+    #     return property
+
+    def add_image(request,pid):
+        for img in request.FILES.getlist('property_image'):
+            i = imgtable(property=pid,img=img)
+            i.save()

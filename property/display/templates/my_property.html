@@ -4,6 +4,18 @@
 active_tab
 {% endblock %}
 
+{% block myproperty %}
+True
+{% endblock %}
+
 {% block list %}
 
+{% endblock %}
+
+{% block navlinkprev %}
+href="/my_property/{{pindex.initial}}/prev/"
+{% endblock %}
+
+{% block navlinknext %}
+href="/my_property/{{pindex.last}}/next/"
 {% endblock %}

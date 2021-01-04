@@ -115,7 +115,7 @@ margin-top:20px;
   }
 .bg_2 {
 color:#000;
-display:block;
+display:flex;
 padding:15px;
   }
 .bg_1 i{
@@ -123,6 +123,7 @@ margin-right:5px;
   }
 .bg_2 i{
 margin-right:5px;
+font-size: 25px;
   }
 .bg_2 input{
 width: 70%;
@@ -217,8 +218,44 @@ margin-top:15px;
 input[type="file"]{
   display: none;
 }
-
-
+/*.iw{
+  height: 252px;
+  width: 360px;
+  margin-top: 20px;
+  display: block;
+  text-align: center;
+}*/
+.img_slider{
+  text-align: -webkit-center;
+}
+.carousel-inner .item img{
+  height: 450px;
+}
+.carousel-indicators .scroll li{
+  position: relative;
+}
+.carousel-indicators .scroll li{
+  position: absolute;
+}
+.article-slide .carousel-indicators li{
+  position: relative;
+}
+.article-slide .carousel-indicators img{
+  position: absolute;
+}
+#cross{
+  position: relative;
+  z-index: 4;
+  float: right;
+  height: 25%;
+  width: 25%;
+}
+#cross_expand{
+  height: 100%;
+  height: 100%;
+  background-color: #ff000042;
+  background-color: red;
+}
 /*********************contact_end****************/
 
 @media screen and (max-width : 767px){
@@ -252,11 +289,11 @@ input[type="file"]{
 
 .item{
   height: 447px;
-  text-align: center;
+  /*text-align: center;*/
 }
-.item img{
+/*.item img{
   position: absolute;
-}
+}*/
 .carousel-inner{
 text-align: center;
 }
@@ -275,8 +312,11 @@ text-align: center;
 .list_detail_lm2l{
 display: flex; 
 }
+.list_detail_lm2l ul li{
+  height: 34px;
+}
 .list_detail_lm2l ul li input{
-  height: 22px;
+  /*height: 35px;*/
 }
 .list_detail_rm_1 ul li input{
   width: 80%;
@@ -284,12 +324,23 @@ display: flex;
 .list_detail_lm3i1{
 text-align: center;
 }
-textarea{
+#details{
   width: 90%;
   height: 250px;
+  display: initial;
+  height: 250px;
+  width: 90%;
 }
 .left{
  text-align-last: left;
+}
+.img_slider{
+  text-align: -webkit-center;
+  background-color: aqua;
+}
+.scroll{
+  overflow-y: scroll;
+  height: 155px;
 }
 
 @media (min-width:768px) and (max-width:991px) {

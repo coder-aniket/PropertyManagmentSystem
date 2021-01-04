@@ -8,6 +8,7 @@ Property Managment System | Home
 
 {% block links %}
 <link href="{%static 'css/index.css'%}" rel="stylesheet">
+<link href="{%static 'css/list.css'%}" rel="stylesheet">
 {% endblock %}
 
 {% block index %}
@@ -59,12 +60,14 @@ active_tab
 
 <section id="booking">
  <div class="container">
+ <form action="{% url 'list' %}" method="POST">
+ 	{% csrf_token %}
   <div class="row">
    <div class="booking_1 clearfix">
     <div class="col-sm-3">
 	 <div class="booking_1i clearfix">
-	    <select class="form-control">
-		  <option>Any Status</option>
+	    <select name="offer_type" class="form-control">
+		  <option value="all">Any Status</option>
 		  <option>For Rent</option>
 		  <option>For Sale</option>
         </select>
@@ -72,8 +75,8 @@ active_tab
 	</div>
 	<div class="col-sm-3">
 	 <div class="booking_1i clearfix">
-	    <select class="form-control">
-		  <option>Any City</option>
+	    <select name="city" class="form-control">
+		  <option value="all">Any City</option>
 		  <option>New York</option>
 		  <option>Sydney</option>
 		  <option>Washington</option>
@@ -82,8 +85,8 @@ active_tab
 	</div>
 	<div class="col-sm-3">
 	 <div class="booking_1i clearfix">
-	    <select class="form-control">
-		  <option>Bedrooms</option>
+	    <select name="bedrooms" class="form-control">
+		  <option value="all">Bedrooms</option>
 		  <option>1</option>
 		  <option>2</option>
 		  <option>3+</option>
@@ -92,11 +95,11 @@ active_tab
 	</div>
 	<div class="col-sm-3">
 	 <div class="booking_1i clearfix">
-	    <select class="form-control">
-		  <option>Sort</option>
-		  <option>Price</option>
-		  <option>Bedroom</option>
-		  <option>Date</option>
+	    <select name="sort" class="form-control">
+		  <option value="all">Sort</option>
+		  <option value="price">Price</option>
+		  <option value="bedrooms">Bedroom</option>
+		  <option value="year">Date</option>
         </select>
 	 </div>
 	</div>
@@ -104,207 +107,91 @@ active_tab
    <div class="booking_1 clearfix">
     <div class="col-sm-3">
 	 <div class="booking_1i clearfix">
-	    <select class="form-control">
-		  <option>Any Type</option>
+	    <select name="property_type" class="form-control">
+		  <option value="all">Any Type</option>
 		  <option>House</option>
-		  <option>Office</option>
+		  <option>Land</option>
 		  <option>Appartment</option>
+		  <option>Office</option>
         </select>
 	 </div>
 	</div>
 	<div class="col-sm-3">
 	 <div class="booking_1i clearfix">
-	    <input class="form-control" placeholder="Min Price" type="text">
+	    <input name="min_price" class="form-control" placeholder="Min Price" type="text">
 	 </div>
 	</div>
 	<div class="col-sm-3">
 	 <div class="booking_1i clearfix">
-	    <input class="form-control" placeholder="Max Price" type="text">
+	    <input name="max_price" class="form-control" placeholder="Max Price" type="text">
 	 </div>
 	</div>
 	<div class="col-sm-3">
 	 <div class="booking_1i clearfix">
-	    <h5 class="mgt"><a  class="button mgt">SEARCH</a></h5>
+	    <h5 class="mgt"><a  class="button mgt" onclick="submit()">SEARCH</a></h5>
+	    <input type="submit" name="submit" style="display: none">
 	 </div>
 	</div>
    </div>
   </div>
+ </form>
  </div>
 </section>
+
+<script type="text/javascript">
+function submit() {
+		$("input[type='submit']").trigger("click");
+	}	
+</script>
 
 <section id="prop">
  <div class="container">
   <div class="row">
-   <div class="prop_1 clearfix">
-    <div class="col-sm-3">
-	 <div class="prop_1i clearfix">
-	  <span><i class="fa fa-home"></i></span>
-	  <h5><a href="#">PROPERTY BOOKING</a></h5>
-	  <p>Nunc. Lectus eget. Iaculis dui velit velit turpis lacus nostra a aliquet integer</p>
-	  <h5><a href="#">READ MORE</a></h5>
-	 </div>
+  	
+   <div class=" clearfix">
+   	{% for p in property %}
+
+    <div class="prop_3 col-sm-4">
+	 <div class="list_1_1 clearfix">
+	   <a href="/list_details/{{p.id}}"><img 	{% for i in img %}
+			   		{% if i.property_id is p.id %} 
+			   		src="/media/{{i.img}}" 
+			   		{% endif %}
+   				{% endfor %} 
+   		class="iw" alt="VMJMBOE PROPERTY"></a>
+	    <div class="list_1_1i clearfix">
+		  <div class="overflow tile_title"><h3><a href="/list_details/{{p.id}}">{{ p.property_title }}</a></h3></div>
+	   	  <div class="overflow tile_address"><i class="fa fa-map-marker"></i>
+	   	  {{ p.neighborhood }},{{ p.street }},{{ p.city }},{{ p.zip_code }}
+	   	  </div>
+	   <h4><i class="fa fa-rupee"></i> {{ p.price }}</h4>
+	   <ul class="nav_list">
+	     <li><span>Bedrooms:</span> {{ p.bedrooms}}</li>
+		 <li><span>Bathrooms:</span> {{ p.bathrooms}}</li>
+		 <li><span>Land size:</span> {{ p.property_size }} sq. ft. </li>
+	   </ul>
+	   <ul class="nav_list_1">
+	     <li><span class="date">{{ p.year }} years ago</span></li>
+		 <li><span class="comp"><a {% if p.id in wid %} class="wishlist" {% endif %} href="/mwishlist/{{p.id}}" target="backend">Wishlist</a></span></li>
+		 <li><span class="det"><a href="/list_details/{{p.id}}">DETAILS</a></span></li>
+	   </ul>
+		</div>
+	  </div>
 	</div>
-	<div class="col-sm-3">
-	 <div class="prop_1i clearfix">
-	  <span><i class="fa fa-pencil"></i></span>
-	  <h5><a href="#">PAYMENT GUARANTEE</a></h5>
-	  <p>Nunc. Lectus eget. Iaculis dui velit velit turpis lacus nostra a aliquet integer</p>
-	  <h5><a href="#">READ MORE</a></h5>
-	 </div>
-	</div>
-	<div class="col-sm-3">
-	 <div class="prop_1i clearfix">
-	  <span><i class="fa fa-home"></i></span>
-	  <h5><a href="#">HOUSE MANAGEMENT</a></h5>
-	  <p>Nunc. Lectus eget. Iaculis dui velit velit turpis lacus nostra a aliquet integer</p>
-	  <h5><a href="#">READ MORE</a></h5>
-	 </div>
-	</div>
-	<div class="col-sm-3">
-	 <div class="prop_1i clearfix">
-	  <span><i class="fa fa-connectdevelop"></i></span>
-	  <h5><a href="#">PROPERTY DEAL</a></h5>
-	  <p>Nunc. Lectus eget. Iaculis dui velit velit turpis lacus nostra a aliquet integer</p>
-	  <h5><a href="#">READ MORE</a></h5>
-	 </div>
+		<script type="text/javascript">
+			$(document).ready(function(){
+			  $(".comp a").click(function(){
+			  	$(this).addClass("wishlist");
+			  });
+			  $(".comp .wishlist").click(function(){
+			  	$(this).removeClass("wishlist");
+			  });
+			});
+		</script>
+	{% endfor %}
 	</div>
    </div>
-   <div class="prop_2 clearfix">
-    <div class="col-sm-6">
-	 <div class="prop_2_l clearfix">
-	  <h3>RECENT <span>PROPERTIES</span></h3>
-	 </div>
-	</div>
-	<div class="col-sm-6">
-	 <div class="prop_2_r text-right clearfix">
-	  <h5><a href="#">View All Properties</a></h5>
-	 </div>
-	</div>
-   </div>
-   <div class="prop_3 clearfix">
-    <div class="col-sm-4">
-	 <div class="list_1_1 clearfix">
-	   <a href="#"><img src="{%static 'img/4.jpg'%}"  class="iw" alt="abc"></a>
-	    <div class="list_1_1i clearfix">
-		  <h3><a href="#">Popular apartment in the city delhi</a></h3>
-	   <p><i class="fa fa-map-marker"></i> 122 N Morgan St, Chicago, IL 60607, USA</p>
-	   <h4>$ 1,200.000</h4>
-	   <ul class="nav_list">
-	     <li><span>Bedrooms:</span> 3</li>
-		 <li><span>Bathrooms:</span> 2</li>
-		 <li><span>Land size:</span> 110 ft²</li>
-	   </ul>
-	   <ul class="nav_list_1">
-	     <li><span class="date">2 years ago</span></li>
-		 <li><span class="comp"><a href="#">Wishlist</a></span></li>
-		 <li><span class="det"><a href="{% url 'list_details' %}">DETAILS</a></span></li>
-	   </ul>
-		</div>
-	  </div>
-	</div>
-	<div class="col-sm-4">
-	 <div class="list_1_1 clearfix">
-	   <a href="#"><img src="{%static 'img/5.jpg'%}"  class="iw" alt="abc"></a>
-	    <div class="list_1_1i clearfix">
-		  <h3><a href="#">Popular apartment in the city delhi</a></h3>
-	   <p><i class="fa fa-map-marker"></i> 122 N Morgan St, Chicago, IL 60607, USA</p>
-	   <h4>$ 1,300.000</h4>
-	   <ul class="nav_list">
-	     <li><span>Bedrooms:</span> 3</li>
-		 <li><span>Bathrooms:</span> 2</li>
-		 <li><span>Land size:</span> 110 ft²</li>
-	   </ul>
-	   <ul class="nav_list_1">
-	     <li><span class="date">2 years ago</span></li>
-		 <li><span class="comp"><a href="#">Wishlist</a></span></li>
-		 <li><span class="det"><a href="{% url 'list_details' %}">DETAILS</a></span></li>
-	   </ul>
-		</div>
-	  </div>
-	</div>
-	<div class="col-sm-4">
-	 <div class="list_1_1 clearfix">
-	   <a href="#"><img src="{%static 'img/6.jpg'%}"  class="iw" alt="abc"></a>
-	    <div class="list_1_1i clearfix">
-		  <h3><a href="#">Popular apartment in the city delhi</a></h3>
-	   <p><i class="fa fa-map-marker"></i> 122 N Morgan St, Chicago, IL 60607, USA</p>
-	   <h4>$ 1,900.000</h4>
-	   <ul class="nav_list">
-	     <li><span>Bedrooms:</span> 3</li>
-		 <li><span>Bathrooms:</span> 2</li>
-		 <li><span>Land size:</span> 110 ft²</li>
-	   </ul>
-	   <ul class="nav_list_1">
-	     <li><span class="date">2 years ago</span></li>
-		 <li><span class="comp"><a href="#">Wishlist</a></span></li>
-		 <li><span class="det"><a href="{% url 'list_details' %}">DETAILS</a></span></li>
-	   </ul>
-		</div>
-	  </div>
-	</div>
-   </div>
-   <div class="prop_3 clearfix">
-    <div class="col-sm-4">
-	 <div class="list_1_1 clearfix">
-	   <a href="#"><img src="{%static 'img/7.jpg'%}"  class="iw" alt="abc"></a>
-	    <div class="list_1_1i clearfix">
-		  <h3><a href="#">Popular apartment in the city delhi</a></h3>
-	   <p><i class="fa fa-map-marker"></i> 122 N Morgan St, Chicago, IL 60607, USA</p>
-	   <h4>$ 1,200.000</h4>
-	   <ul class="nav_list">
-	     <li><span>Bedrooms:</span> 3</li>
-		 <li><span>Bathrooms:</span> 2</li>
-		 <li><span>Land size:</span> 110 ft²</li>
-	   </ul>
-	   <ul class="nav_list_1">
-	     <li><span class="date">2 years ago</span></li>
-		 <li><span class="comp"><a href="#">Wishlist</a></span></li>
-		 <li><span class="det"><a>DETAILS</a></span></li>
-	   </ul>
-		</div>
-	  </div>
-	</div>
-	<div class="col-sm-4">
-	 <div class="list_1_1 clearfix">
-	   <a href="#"><img src="{%static 'img/8.jpg'%}"  class="iw" alt="abc"></a>
-	    <div class="list_1_1i clearfix">
-		  <h3><a href="#">Popular apartment in the city delhi</a></h3>
-	   <p><i class="fa fa-map-marker"></i> 122 N Morgan St, Chicago, IL 60607, USA</p>
-	   <h4>$ 1,300.000</h4>
-	   <ul class="nav_list">
-	     <li><span>Bedrooms:</span> 3</li>
-		 <li><span>Bathrooms:</span> 2</li>
-		 <li><span>Land size:</span> 110 ft²</li>
-	   </ul>
-	   <ul class="nav_list_1">
-	     <li><span class="date">2 years ago</span></li>
-		 <li><span class="comp"><a href="#">Wishlist</a></span></li>
-		 <li><span class="det"><a href="{% url 'list_details' %}">DETAILS</a></span></li>
-	   </ul>
-		</div>
-	  </div>
-	</div>
-	<div class="col-sm-4">
-	 <div class="list_1_1 clearfix">
-	   <a href="#"><img src="{%static 'img/9.jpg'%}"  class="iw" alt="abc"></a>
-	    <div class="list_1_1i clearfix">
-		  <h3><a href="#">Popular apartment in the city delhi</a></h3>
-	   <p><i class="fa fa-map-marker"></i> 122 N Morgan St, Chicago, IL 60607, USA</p>
-	   <h4>$ 1,900.000</h4>
-	   <ul class="nav_list">
-	     <li><span>Bedrooms:</span> 3</li>
-		 <li><span>Bathrooms:</span> 2</li>
-		 <li><span>Land size:</span> 110 ft²</li>
-	   </ul>
-	   <ul class="nav_list_1">
-	     <li><span class="date">2 years ago</span></li>
-		 <li><span class="comp"><a href="#">Wishlist</a></span></li>
-		 <li><span class="det"><a href="{% url 'list_details' %}">DETAILS</a></span></li>
-	   </ul>
-		</div>
-	  </div>
-	</div>
-   </div>
+   
   </div>
  </div>
 </section>
@@ -320,30 +207,30 @@ active_tab
    </div>
    <div class="wishlist_2 text-center clearfix">
      <div class="col-sm-3">
-	  <div class="wishlist_2_i text-center clearfix">
+	  <div name="House" class="wishlist_2_i text-center clearfix">
 	    <span><i class="fa fa-home"></i></span>
-		<h4><a href="{% url 'list' %}">HOUSE</a></h4>
+		<h4>House</h4>
 		<p>Nisi. Tellus lobortis dapibus erat eu et. Senectus quam vitae in arcu nisi quam</p>
 	  </div>
 	 </div>
 	 <div class="col-sm-3">
-	  <div class="wishlist_2_i text-center clearfix">
+	  <div name="Land" class="wishlist_2_i text-center clearfix">
 	    <span><i class="fa fa-map-marker"></i></span>
-		<h4><a href="{% url 'list' %}">LAND</a></h4>
+		<h4>Land</h4>
 		<p>Nisi. Tellus lobortis dapibus erat eu et. Senectus quam vitae in arcu nisi quam</p>
 	  </div>
 	 </div>
 	 <div class="col-sm-3">
-	  <div class="wishlist_2_i text-center clearfix">
+	  <div name="Appartment" class="wishlist_2_i text-center clearfix">
 	    <span><i class="fa fa-building"></i></span>
-		<h4><a href="{% url 'list' %}">OFFICE</a></h4>
+		<h4>Appartment</h4>
 		<p>Nisi. Tellus lobortis dapibus erat eu et. Senectus quam vitae in arcu nisi quam</p>
 	  </div>
 	 </div>
 	 <div class="col-sm-3">
-	  <div class="wishlist_2_i text-center clearfix">
+	  <div name="Office" class="wishlist_2_i text-center clearfix">
 	    <span><i class="fa fa-shopping-bag"></i></span>
-		<h4><a href="{% url 'list' %}">BUSINESS</a></h4>
+		<h4>Office</h4>
 		<p>Nisi. Tellus lobortis dapibus erat eu et. Senectus quam vitae in arcu nisi quam</p>
 	  </div>
 	 </div>
@@ -351,7 +238,22 @@ active_tab
   </div>
  </div>
 </section>
-
+<script type="text/javascript">
+	$(document).ready(function(){
+		$(".wishlist_2_i").click(function(){
+			var type = $(this).attr('name');
+			// alert(type);
+			$("select[name='property_type'] option").each(function(){
+				
+				if ($(this).text().includes(type))
+				 { //alert($(this).text());
+					$(this).attr('selected','selected');
+					submit();
+				}
+			});
+		});
+	});
+</script>
 <section id="about_home">
  <div class="about_home_m clearfix">
    <div class="container">
@@ -359,28 +261,28 @@ active_tab
    <div class="about_h_1 clearfix">
     <div class="col-sm-3">
 	 <div class="about_h_1i text-center clearfix">
-	  <h3>1060</h3>
+	  <h3>{{stats.propc}}</h3>
 	  <hr>
 	  <h5>Properties</h5>
 	 </div>
 	</div>
 	<div class="col-sm-3">
 	 <div class="about_h_1i text-center clearfix">
-	  <h3>920</h3>
+	  <h3>{{stats.profc}}</h3>
 	  <hr>
 	  <h5>Users</h5>
 	 </div>
 	</div>
 	<div class="col-sm-3">
 	 <div class="about_h_1i text-center clearfix">
-	  <h3>480</h3>
+	  <h3>{{stats.propsc}}</h3>
 	  <hr>
 	  <h5>Deals Done</h5>
 	 </div>
 	</div>
 	<div class="col-sm-3">
 	 <div class="about_h_1i text-center clearfix">
-	  <h3>820</h3>
+	  <h3>{{stats.profbc}}</h3>
 	  <hr>
 	  <h5>Agents</h5>
 	 </div>
@@ -401,82 +303,44 @@ active_tab
 	 </div>
 	</div>
 	<div class="col-sm-6">
-	  <div class="controls clearfix pull-right">
+	  	<div class="controls clearfix pull-right">
                     <a class="left fa fa-chevron-left btn btn-success" href="#carousel-example" data-slide="prev"></a><a class="right fa fa-chevron-right btn btn-success" href="#carousel-example" data-slide="next"></a>
-                </div>
+        </div>
 	</div>
   </div>
    <div id="carousel-example" class="carousel slide team_h_1 clearfix" data-ride="carousel">
             <!-- Wrapper for slides -->
             <div class="carousel-inner">
                 <div class="item active">
+                	{% for b in broker %}
+                	{% if forloop.counter < 5 %}
                         <div class="col-sm-3">
                             <div class="col-item">
                                <img src="{%static 'img/11.jpg'%}" class="img-responsive" alt="a">
 							   <div class="clearfix text-center item_1">
-							    <h4><a href="#">Eget Nulla</a></h4>
+							    <h4><a href="#">{{b.user.first_name}} {{b.user.last_name}}</a></h4>
 							   </div>
                             </div>
                         </div>
-                        <div class="col-sm-3">
-                            <div class="col-item">
-                               <img src="{%static 'img/12.jpg'%}" class="img-responsive" alt="a">
-							   <div class="clearfix text-center item_1">
-							    <h4><a href="#">Dapibus Diam</a></h4>
-							   </div>
-                            </div>
-                        </div>
-                        <div class="col-sm-3">
-                            <div class="col-item">
-                               <img src="{%static 'img/13.jpg'%}" class="img-responsive" alt="a">
-							   <div class="clearfix text-center item_1">
-							    <h4><a href="#">Lacinia Arcu</a></h4>
-							   </div>
-                            </div>
-                        </div>
-                        <div class="col-sm-3">
-                            <div class="col-item">
-                               <img src="{%static 'img/14.jpg'%}" class="img-responsive" alt="a">
-							   <div class="clearfix text-center item_1">
-							    <h4><a href="#">Mauris Massa</a></h4>
-							   </div>
-                            </div>
-                        </div>
+                        {% endif %}
+                        {% endfor %}
                 </div>
+                {% if broker|length > 4 %}
                 <div class="item">
+                	{% for b in broker %}
+                	{% if forloop.counter > 4 %}
                         <div class="col-sm-3">
                             <div class="col-item">
-                               <img src="{%static 'img/15.jpg'%}" class="img-responsive" alt="a">
+                               <img src="{%static 'img/11.jpg'%}" class="img-responsive" alt="a">
 							   <div class="clearfix text-center item_1">
-							    <h4><a href="#">Semper Porta</a></h4>
+							    <h4><a href="#">{{b.user.first_name}} {{b.user.last_name}}</a></h4>
 							   </div>
                             </div>
                         </div>
-                        <div class="col-sm-3">
-                            <div class="col-item">
-                               <img src="{%static 'img/16.jpg'%}" class="img-responsive" alt="a">
-							   <div class="clearfix text-center item_1">
-							    <h4><a href="#">Sed Augue</a></h4>
-							   </div>
-                            </div>
-                        </div>
-                        <div class="col-sm-3">
-                            <div class="col-item">
-                               <img src="{%static 'img/17.jpg'%}" class="img-responsive" alt="a">
-							   <div class="clearfix text-center item_1">
-							    <h4><a href="#">Nec Tellus</a></h4>
-							   </div>
-                            </div>
-                        </div>
-                        <div class="col-sm-3">
-                            <div class="col-item">
-                               <img src="{%static 'img/18.jpg'%}" class="img-responsive" alt="a">
-							   <div class="clearfix text-center item_1">
-							    <h4><a href="#">Nulla Quis</a></h4>
-							   </div>
-                            </div>
-                        </div>
+                        {% endif %}
+                        {% endfor %}
                 </div>
+                {% endif %}
             </div>
         </div>
   </div>

@@ -14,7 +14,30 @@ Property Managment System | List_Details
 active_tab
 {% endblock %}
 
-{% block body %}
+{% block body %} 
+<section id="center" class="center_blog_d">
+<div class="center_bgm clearfix">
+ <div class="container">
+  <div class="row">
+   <div class="center_team_1">
+    <div class="col-sm-6">
+	 <div class="center_team_1_i clearfix">
+	   	 <h2 class="mgt">LIST DETAIL</h2>
+	 </div>
+	</div>
+	<div class="col-sm-6">
+	 <div class="center_team_1_i1 text-right clearfix">
+	   	<ul>
+		 <li><a href="#">Home</a></li>
+		 <li class="border_none">List Detail</li>
+		</ul>
+	 </div>
+	</div>
+	</div>
+  </div>
+ </div>
+</div>
+</section>
 <section id="list_detail">
  <div class="container">
   <div class="row">
@@ -22,11 +45,17 @@ active_tab
 	 <div class="list_detail_lm clearfix">
 	   <div class="list_detail_lm1 clearfix">
 	     <div class="carousel slide article-slide" id="article-photo-carousel">
-
+	     	<h3>{{ p.property_title }}</h3><br>
   <!-- Wrapper for slides -->
   <div class="carousel-inner cont-slider">
-
-    <div class="item">
+  	{% if img %}
+  	{% for i in img %}
+    <div class="item img_slider">
+      <img class="slider_image" alt="" title="" src="/media/{{i.1.img}}">
+    </div>
+    {% endfor %}
+    {% else %}
+    <div class="item active">
       <img alt="" title="" src="{% static 'img/42.jpg' %}">
     </div>
     <div class="item">
@@ -35,12 +64,26 @@ active_tab
     <div class="item">
       <img alt="" title="" src="{% static 'img/44.jpg' %}">
     </div>
-    <div class="item active">
+    <div class="item">
       <img alt="" title="" src="{% static 'img/45.jpg' %}">
     </div>
+    {% endif %}
   </div>
+  <script type="text/javascript">
+  	$(document).ready(function(){
+  		$(".item").first().addClass("active");
+  		$(".carousel-indicators li").first().addClass("active");
+  	});
+  </script>
   <!-- Indicators -->
-  <ol class="carousel-indicators">
+  <ol class="carousel-indicators scroll">
+  	{% if img %}
+  	{% for i in img %}
+    <li class="" data-slide-to="{{i.0}}" data-target="#article-photo-carousel">
+      <img alt="" src="/media/{{i.1.img}}">
+    </li>
+    {% endfor %}
+    {% else %}
     <li class="" data-slide-to="0" data-target="#article-photo-carousel">
       <img alt="" src="{% static 'img/42.jpg' %}">
     </li>
@@ -53,6 +96,7 @@ active_tab
     <li class="active" data-slide-to="3" data-target="#article-photo-carousel">
       <img alt="" src="{% static 'img/45.jpg' %}">
     </li>
+    {% endif %}
   </ol>
 </div>
 	   </div>
@@ -60,22 +104,22 @@ active_tab
 	    <div class="col-sm-6">
 		 <div class="list_detail_lm2l">
 		  <ul>
-		   <li><span>Property type:</span> Apartment </li>
-		   <li><span>City:</span> London  </li>
-		   <li><span>Neighborhood:</span> Locker Park  </li>
-		   <li><span>Bedrooms:</span> 5 </li>
-		   <li><span>Property size:</span> 1700 ft²</li>
+		   <li><span>Property type:</span> {{ property.property_type }} </li>
+		   <li><span>City:</span> {{ property.city }}  </li>
+		   <li><span>Neighborhood:</span> {{ property.neighborhood }}  </li>
+		   <li><span>Bedrooms:</span> {{ property.bedrooms }} </li>
+		   <li><span>Property size:</span> {{ property.property_size }} ft²</li>
 		  </ul>
 		 </div>
 		</div>
 		<div class="col-sm-6">
 		 <div class="list_detail_lm2l">
 		  <ul>
-		   <li><span>Offer type:</span> For Sale  , Open House  </li>
-		   <li><span>Zip Code:</span> 00000   </li>
-		   <li><span>Street:</span> CH Wicker Park Street #7  </li>
-		   <li><span>Bathrooms:</span> 7 </li>
-		   <li><span>Year:</span> 2009</li>
+		   <li><span>Offer type:</span> {{ property.offer_type }}  </li>
+		   <li><span>Zip Code:</span> {{ property.zip_code }}   </li>
+		   <li><span>Street:</span> {{ property.street }}  </li>
+		   <li><span>Bathrooms:</span> {{ property.bathrooms }} </li>
+		   <li><span>Year:</span> {{ property.year }} </li>
 		  </ul>
 		 </div>
 		</div>
@@ -85,33 +129,13 @@ active_tab
 		   <h3 class="text-center">FEATURES</h3>
 		</div>
 		<div class="list_detail_lm3i1 clearfix">
+			{% for f in flist %}
 		   <div class="col-sm-4">
 			  <div class="list_detail_lm3i1i clearfix">
-				 <ul> 
-				  <li>Attic</li>
-				  <li>Garden</li>
-				  <li>Microwave</li>
-				 </ul>
+				  <li>{{f}}</li>
 			  </div>
 		</div>
-		   <div class="col-sm-4">
-			  <div class="list_detail_lm3i1i clearfix">
-				 <ul> 
-				  <li>Dishwasher</li>
-				  <li>Gym</li>
-				  <li>Patio</li>
-				 </ul>
-			  </div>
-		   </div>
-		   <div class="col-sm-4">
-			  <div class="list_detail_lm3i1i clearfix">
-				 <ul> 
-				  <li>Fireplace</li>
-				  <li>High ceilings</li>
-				  <li>Swimming Pool</li>
-				 </ul>
-			  </div>
-		    </div>
+		{% endfor %}
 		</div>
 	    
 	   </div>
@@ -120,9 +144,7 @@ active_tab
 		   <h3 class="text-center">DETAILS</h3>
 		</div>
 		<div class="list_detail_lm3i1 clearfix">
-		 <p>How the adventure ended will be seen anon. Aouda was anxious, though she said nothing. As for Passepartout, he thought Mr. Fogg’s manoeuvre simply glorious. The captain had said “between eleven and twelve knots,” and the Henrietta confirmed his prediction.</p>
-		 <p>If, then—for there were “ifs” still—the sea did not become too boisterous, if the wind did not veer round to the east, if no accident happened to the boat or its machinery, the Henrietta might cross the three thousand miles from New York to Liverpool in the nine days, between the 12th and the 21st of December. It is true that, once arrived, the affair on board the Henrietta, added to that of the Bank of England, might create more difficulties for Mr. Fogg than he imagined or could desire.</p>
-		 <p>During the first days, they went along smoothly enough. The sea was not very unpropitious, the wind seemed stationary in the north-east, the sails were hoisted, and the Henrietta ploughed across the waves like a real trans-Atlantic steamer.</p>
+		 {{property.details}}
 		 <ul class="social-network social-circle">
                         <li><a href="#" class="icoRss" title="Rss"><i class="fa fa-rss"></i></a></li>
                         <li><a href="#" class="icoFacebook" title="Facebook"><i class="fa fa-facebook"></i></a></li>
@@ -139,97 +161,46 @@ active_tab
 	      <p class="text-center">Sed cursus ante dapibus diam. Sed nisi. Nulla quis..</p>
 	    </div>
 	     <div class="prop_3 clearfix">
+	     	{% for p in rp %}
           <div class="col-sm-6">
-	 <div class="list_1_1 clearfix">
-	   <a href="#"><img src="{% static 'img/48.jpg' %}" class="iw" alt="abc"></a>
-	    <div class="list_1_1i clearfix">
-		  <h3><a href="#">Popular apartment in the city delhi</a></h3>
-	   <p><i class="fa fa-map-marker"></i> 122 N Morgan St, Chicago, IL 60607, USA</p>
-	   <h4>$ 1,200.000</h4>
-	   <ul class="nav_list">
-	     <li><span>Bedrooms:</span> 3</li>
-		 <li><span>Bathrooms:</span> 2</li>
-		 <li><span>Land size:</span> 110 ft²</li>
-	   </ul>
-	   <ul class="nav_list_1">
-	     <li><span class="date">2 years ago</span></li>
-		 <li><span class="comp"><a href="#">Wishlist</a></span></li>
-		 <li><span class="det"><a href="#">DETAILS</a></span></li>
-	   </ul>
-		</div>
-	  </div>
-	</div>
-     	  <div class="col-sm-6">
-	 <div class="list_1_1 clearfix">
-	   <a href="#"><img src="{% static 'img/49.jpg' %}" class="iw" alt="abc"></a>
-	    <div class="list_1_1i clearfix">
-		  <h3><a href="#">Popular apartment in the city delhi</a></h3>
-	   <p><i class="fa fa-map-marker"></i> 122 N Morgan St, Chicago, IL 60607, USA</p>
-	   <h4>$ 1,300.000</h4>
-	   <ul class="nav_list">
-	     <li><span>Bedrooms:</span> 3</li>
-		 <li><span>Bathrooms:</span> 2</li>
-		 <li><span>Land size:</span> 110 ft²</li>
-	   </ul>
-	   <ul class="nav_list_1">
-	     <li><span class="date">2 years ago</span></li>
-		 <li><span class="comp"><a href="#">Wishlist</a></span></li>
-		 <li><span class="det"><a href="#">DETAILS</a></span></li>
-	   </ul>
-		</div>
-	  </div>
-	</div>
-       </div>
-	     <div class="prop_3 clearfix">
-          <div class="col-sm-6">
-	 <div class="list_1_1 clearfix">
-	   <a href="#"><img src="{% static 'img/50.jpg' %}" class="iw" alt="abc"></a>
-	    <div class="list_1_1i clearfix">
-		  <h3><a href="#">Popular apartment in the city delhi</a></h3>
-	   <p><i class="fa fa-map-marker"></i> 122 N Morgan St, Chicago, IL 60607, USA</p>
-	   <h4>$ 1,200.000</h4>
-	   <ul class="nav_list">
-	     <li><span>Bedrooms:</span> 3</li>
-		 <li><span>Bathrooms:</span> 2</li>
-		 <li><span>Land size:</span> 110 ft²</li>
-	   </ul>
-	   <ul class="nav_list_1">
-	     <li><span class="date">2 years ago</span></li>
-		 <li><span class="comp"><a href="#">Wishlist</a></span></li>
-		 <li><span class="det"><a href="#">DETAILS</a></span></li>
-	   </ul>
-		</div>
-	  </div>
-	</div>
-     	  <div class="col-sm-6">
-	 <div class="list_1_1 clearfix">
-	   <a href="#"><img src="{% static 'img/51.jpg' %}" class="iw" alt="abc"></a>
-	    <div class="list_1_1i clearfix">
-		  <h3><a href="#">Popular apartment in the city delhi</a></h3>
-	   <p><i class="fa fa-map-marker"></i> 122 N Morgan St, Chicago, IL 60607, USA</p>
-	   <h4>$ 1,300.000</h4>
-	   <ul class="nav_list">
-	     <li><span>Bedrooms:</span> 3</li>
-		 <li><span>Bathrooms:</span> 2</li>
-		 <li><span>Land size:</span> 110 ft²</li>
-	   </ul>
-	   <ul class="nav_list_1">
-	     <li><span class="date">2 years ago</span></li>
-		 <li><span class="comp"><a href="#">Wishlist</a></span></li>
-		 <li><span class="det"><a href="#">DETAILS</a></span></li>
-	   </ul>
-		</div>
-	  </div>
-	</div>
-       </div>
+			<div class="list_1_1 clearfix">
+			   <a><img 	{% for i in imgs %}
+					   		{% if i.property_id is p.id %} 
+					   		src="/media/{{i.img}}" 
+					   		{% endif %}
+		   				{% endfor %} 
+		   		class="iw" alt="VMJMBOE PROPERTY"></a>
+			    <div class="list_1_1i clearfix">
+				  <div class="overflow tile_title"><h3><a href="/list_detail/{{p.id}}">{{ p.property_title }}</a></h3></div>
+			   	  <div class="overflow tile_address"><i class="fa fa-map-marker"></i>
+			   	  {{ p.neighborhood }},{{ p.street }},{{ p.city }},{{ p.zip_code }}
+			   	  </div>
+			   <h4><i class="fa fa-rupee"></i> {{ p.price }}</h4>
+			   <ul class="nav_list">
+			     <li><span>Bedrooms:</span> {{ p.bedrooms}}</li>
+				 <li><span>Bathrooms:</span> {{ p.bathrooms}}</li>
+				 <li><span>Land size:</span> {{ p.property_size }}</li>
+			   </ul>
+			   <ul class="nav_list_1">
+			     <li><span class="date">{{ p.year }} years ago</span></li>
+				 <li><span class="comp"><a href="">Wishlist</a></span></li>
+				 <li><span class="det"><a href="/list_details/{{p.id}}">DETAILS</a></span></li>
+			   </ul>
+				</div>
+			  </div>
+			</div>
+			{% endfor %}
+	       </div>
    </div>
 	 </div>
 	</div>
 	<div class="col-sm-3">
+		<br>
+		<br>
 	 <div class="list_detail_rm clearfix">
 	  <div class="list_detail_rm_1 clearfix">
 	    <ul>
-		 <li class="bg_1">$ 1,300.000</li>
+		 <li class="bg_1"><i class="fa fa-rupee"></i> 1,300.000</li>
 		 <li class="bg_2"><a href="#"><i class="fa fa-phone"></i> (123) 345-6789</a></li>
 		 <li class="bg_2"><a href="#"><i class="fa fa-map-marker"></i> See Map</a></li>
 		 <li class="bg_2"><a href="#"><i class="fa fa-heart-o"></i> Add to favorite</a></li>
@@ -238,27 +209,28 @@ active_tab
 	  </div>
 	  <div class="list_detail_rm_2 clearfix">
 	   <h3>Reply to the listing</h3>
-	   <input class="form-control" placeholder="Your name" type="text">
-	   <input class="form-control" placeholder="Phone" type="text">
-	   <input class="form-control" placeholder="Email" type="text">
-	   <textarea placeholder="Your Message" class="form-control form_1"></textarea>
-	   <h5><a class="button mgt" href="#">SEND</a></h5>
+
+		{% if enquiry %}
+		<form >
+	    	{% csrf_token %}
+		   <input class="form-control" name="name" placeholder="Your name" type="text" {% if enquiry %} value="{{enquiry.name}}" disabled="disabled" {% else %}required {% endif %}>
+		   <input class="form-control" name="contact" placeholder="contact" type="text" {% if enquiry %} value="{{enquiry.contact}}" disabled="disabled" {% else %}required {% endif %}>
+		   <input class="form-control" name="email" placeholder="Email" type="email" {% if enquiry %} value="{{enquiry.email}}" disabled="disabled" {% else %}required {% endif %}>
+		   <textarea placeholder="Your Message" name="message" class="form-control form_1" {% if enquiry %} value="" disabled="disabled" {% else %}required {% endif %}>{% if enquiry %}{{enquiry.message}}{% endif %}</textarea>
+		   <a href="/seen/{{enquiry.id}}/" class="button" style="border-radius: 25px;">Seen</a>
+		   </form>
+
+		{% else %}
+		<form action="/enquiry/{{p.id}}" method="POST">
+	    	{% csrf_token %}
+		   <input class="form-control" name="name" placeholder="Your name" type="text" required>
+		   <input class="form-control" name="contact" placeholder="contact" type="text" required>
+		   <input class="form-control" name="email" placeholder="Email" type="email" required>
+		   <textarea placeholder="Your Message" name="message" class="form-control form_1" required></textarea>
+		   <input class="button" type="submit" name="submit" value="SEND">
+		</form>
+		{% endif %}
 	  </div>
-	  <div class="list_detail_rm_3 clearfix">
-	    <h3>Semper Porta</h3>
-		<a href="#"><img src="{% static 'img/46.jpg' %}" style="width:100%;" alt="abc"></a>
-		<ul>
-		 <li><a href="#"><i class="fa fa-phone"></i> (123) 345-6789</a></li>
-		 <li><a href="#"><i class="fa fa-envelope"></i> info@gmail.com</a></li>
-		 <li><span>Organization:</span> MyHome</li>
-		</ul>
-	  </div>
-	  <div class="blog_4">
-	   <a href="#"><img src="{% static 'img/47.jpg' %}" alt="img" style="width:100%;"></a>
-	 </div>
-	  <div class="blog_5">
-	  <p><a href="#">Integer nec odionec odio. Praesent libero Sed cursus.</a></p>
-	 </div>
 	 </div>
 	</div>
   </div>

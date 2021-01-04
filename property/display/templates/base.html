@@ -184,13 +184,13 @@
                         <a class="tag_m {% block contact %}{% endblock %}" href="{% url 'contact' %}">Contact</a>
                     </li>
 
-					<li class="dropdown">
-					  <a id="user_drop" class="tag_m {% block profile %} {% endblock %}" href="#" data-toggle="dropdown" role="button" aria-expanded="false">
+					<li class="dropdown" >
+					  <a id="user_drop" class="tag_m {% block profile %} {% endblock %}" href="#" {% if not request.user.username %} onclick="form_toggle()" {% else %} data-toggle="dropdown" role="button" aria-expanded="false"{% endif %}>
 						  {% if request.user.username %} {{request.user.first_name}} {% else %} User {% endif %}<span class="caret"></span></a>
 					  <ul class="dropdown-menu drop_1" role="menu">
-						<li><a class="tag_m" {% if request.user.username %} href="{% url 'profile' %} " {% else %} onclick="form_toggle()" {% endif %}>Profile</a></li>
-						<li><a class="tag_m" href="{% url 'list' %}">Bookmark</a></li>
-						<li><a class="tag_m" href="{% url 'list' %}">Listed</a></li>
+						<li><a class="tag_m"  href="{% url 'profile' %} " >Profile</a></li>
+						<li><a class="tag_m"  href="{% url 'wishlist' %}">Wishlist</a></li>
+						<!-- <li><a class="tag_m" href="{% url 'list' %}">Listed</a></li> -->
 					  </ul>
                     </li>
 					
@@ -289,6 +289,9 @@
   </div>
  </div>
 </section>
+
+<iframe class="backend" name="backend" ></iframe>
+
 <script>
    	function form_toggle(){
     	$("#form").toggleClass("m-fadeOut");

@@ -1,14 +1,15 @@
 from django.shortcuts import render,HttpResponse,redirect
-from django.contrib.auth.models import User
 from django.contrib.auth import authenticate,login,logout
-# from .models import Profile
 from . import views
 from django.db import models
-from django.contrib.auth.models import User,AbstractUser
+from django.contrib.auth.models import User
 # Create your models here.
+p_choices = [('Broker','Broker'),('User','User')]   # user profile type choice
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     contact = models.CharField(max_length=10)
+    type = models.CharField(max_length=6,default=User,choices=p_choices)
+    wishlist = models.CharField(max_length=150,null=True)
 
     def __str__(self):
         return User.objects.get(id=self.user_id).username
@@ -33,7 +34,6 @@ class Profile(models.Model):
         if us is not None:
             login(request,us)
             # Redirect to a success page.
-            # print(request.user.username)
             response = redirect('index')
             return response
         else:
@@ -63,3 +63,25 @@ class Profile(models.Model):
             return HttpResponse("failed");
         except Profile.DoesNotExist:
             return HttpResponse("failed");
+
+    def mwishlist(request,pid):
+        profile = Profile.objects.get(user=request.user.id)
+        # print(profile.wishlist)
+        # print(pid)
+        if profile.wishlist:
+            list = profile.wishlist.split(" ")
+            # print(list)
+            # print(type(list[0]))
+
+            for wpid in list:
+                # print(type(wpid),wpid)
+                if wpid==str(pid):
+                    list.remove(wpid)
+                    profile.wishlist=" ".join(list)
+                    break
+            else:
+                profile.wishlist=profile.wishlist+" "+str(pid)
+        else:
+            profile.wishlist=str(pid)
+        profile.save()
+        return HttpResponse("")

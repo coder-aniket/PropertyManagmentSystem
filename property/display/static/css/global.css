@@ -618,3 +618,6 @@ border-color: red;
     overflow-y: scroll;
   }
 }
+iframe{
+  display: none;
+}

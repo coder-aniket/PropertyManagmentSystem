@@ -156,6 +156,7 @@ font-weight:bold;
 .list_1_1i{
 background:#f4f4f4;
 padding:15px 10px 30px 10px;  
+height: 264px;
   }
 .list_1_1i h4{
   text-align:center;
@@ -204,6 +205,42 @@ margin-top:15px;
   margin-bottom:15px;
   margin-top:15px;
   }
+.img_slider{
+  text-align: -webkit-center;
+}
+.item{
+  background-color: aqua;
+}
+.carousel-inner .item img{
+  height: 450px;
+}
+input[type='submit']{
+  border-radius: 25px;
+}
+form{
+  text-align: center;
+}
+
+.scroll{
+  overflow-y: scroll;
+  height: 155px;
+}
+
+.tile_title{
+  height: 76px;
+  overflow: hidden;
+}
+.tile_address{
+  height: 20px;
+  overflow: hidden;
+}
+.iw{
+  height: 252px;
+  width: 360px;
+  margin-top: 20px;
+  display: block;
+  text-align: center;
+}
 /*********************contact_end****************/
 
 @media screen and (max-width : 767px){

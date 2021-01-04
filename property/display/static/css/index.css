@@ -232,6 +232,7 @@ padding-bottom:40px;
 .wishlist_2_i{
  background:#f4f4f4; 
  padding:40px 15px;
+ cursor: pointer;
   }
 .wishlist_2_i span i{
 font-size:40px; 
@@ -245,6 +246,9 @@ font-size:40px;
 .wishlist_2{
 margin-top:20px;  
   }
+.comp .wishlist{
+background: #bf1f1f;
+}
 /*********************wishlist_end****************/
 
 /*********************about_home****************/

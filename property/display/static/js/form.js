@@ -67,7 +67,7 @@ $(document).ready(function(){
       $(".fbutton").addClass("hide");
       $("input[value='Register']").removeClass("hide");
       $("span").text("")
-      $("form").attr('action', 'register/');
+      $("form").attr('action', '/register/');
     }
     else if ($(this).is('#login-tab')) {
       $(".rfield").attr('disabled', 'disabled');
@@ -78,7 +78,7 @@ $(document).ready(function(){
       $(".fbutton").removeClass("hide");
       $(".lbutton").addClass("hide");
       $("span").text("")
-      $("form").attr('action', 'login/');
+      $("form").attr('action', '/login/');
     }
   });
   $(".fbutton").click(function(){
@@ -95,7 +95,7 @@ $(document).ready(function(){
     $(".nav-item").removeClass("active");
     $(".nav-item:last").addClass("active");
     $("span").text("")
-    $("form").attr('action', 'resetpass/');
+    $("form").attr('action', '/resetpass/');
   });
   $(".lbutton").click(function(){
     $("#login-tab").trigger( "click" );

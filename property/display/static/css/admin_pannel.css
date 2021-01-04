@@ -46,3 +46,8 @@ td{
 .col-3{
 	height: 100%;
 }
+.message{
+	display: block;
+    height: 252px;
+    padding: 15px;
+}

@@ -32,6 +32,13 @@ padding-right:15px;
 .item_1 p{
   margin-bottom:10px;
   }
+.clearfix .text-center .item_1 p{
+  height: 88px;
+  overflow-y: scroll;
+}
+.img-responsive{
+  height: 300px;
+}
 /*********************center_team_end****************/
 
 @media screen and (max-width : 767px){
