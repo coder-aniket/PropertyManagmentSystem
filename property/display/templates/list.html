@@ -145,11 +145,12 @@ function submit() {
 	   	{% for p in property %}
 	    <div class="prop_3 col-sm-4">
 		 <div class="list_1_1 clearfix">
-		   <a href="/list_details/{{p.id}}"><img 	{% for i in img %}
+		   <a href="/list_details/{{p.id}}"><img {% for i in img %}
 				   		{% if i.property_id is p.id %} 
 				   		src="/media/{{i.img}}" 
 				   		{% endif %}
 	   				{% endfor %} 
+	   				src="{% static 'img/28.jpg' %}" 
 	   		class="iw" alt="VMJMBOE PROPERTY"></a>
 		    <div class="list_1_1i clearfix {% if p.status == 'Sold' %} sold {% endif %}">
 			  <div class="overflow tile_title"><h3><a href="/list_details/{{p.id}}">{{ p.property_title }}</a></h3></div>
@@ -168,29 +169,19 @@ function submit() {
 		     {% if p.status != 'Sold' %}
 		     <li><span class="comp"><a {% if p.status != 'Sold' %} href="/sold/{{p.id}}" {% endif %}>Sold</a></span></li>
 			 {% endif %}
+			 <li><span class="det"><a href="/edit_property/{{p.id}}">Edit</a></span></li>
 			 {% else %}
 			 <li><span class="comp"><a {% if p.id in wid %} class="wishlist" href="/mwishlist/{{p.id}}" target="backend" {% endif %}>Wishlist</a></span></li>
-
-			 {% endif %}
 			 <li><span class="det"><a href="/list_details/{{p.id}}">DETAILS</a></span></li>
+			 {% endif %}
+			 
 		   </ul>
 			</div>
 		  </div>
 		</div>
-			<script type="text/javascript">
-				$(document).ready(function(){
-				  $(".list_1_1 .nav_list_1 .comp a").click(function(){
-				  	$(this).toggleClass("wishlist");
-				  });
-				  // $(".comp .wishlist").click(function(){
-				  // 	$(this).removeClass("wishlist");
-				  // });
-				});
-			</script>
 		{% endfor %}
 		</div>
 	   </div>
-	   
 	  </div>
 	 </div>
 
@@ -207,4 +198,11 @@ function submit() {
 		{% endif %}
 	</div>
 </section>
+<script type="text/javascript">
+	$(document).ready(function(){
+	  $(".comp a").click(function(){
+	  	$(this).toggleClass('wishlist');
+	  });
+	});
+</script>
 {% endblock %}

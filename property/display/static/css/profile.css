@@ -20,6 +20,7 @@ html,body{
 #main_pannel{
 	/*margin-left: 114px;*/
 	/*overflow-y: auto;*/
+	height: 100%
 }
 .row{
 	width: 100%;
@@ -33,7 +34,7 @@ td{
 }
 
 #main_pannel>div{
-	height: 70%;
+	height: 100%;
 }
 .navbar{
 	height: 100%;
@@ -52,4 +53,63 @@ td{
     padding: 15px;
     border: 1px solid green;
     overflow-y: scroll;
+}
+.form{
+	/*top:15px;*/
+	width: 75%;
+	padding: 20px;
+	text-align: center;
+}
+.circle{
+	height: 120px;
+	width: 120px;
+	border: 2px solid grey;
+	border-radius: 25%;
+	display: table-caption
+}
+.circle div{
+	background-color: #8080805c;
+	margin-top: 75px;
+    border-radius: 0 0 37% 37%;
+    visibility: hidden;
+    cursor: pointer;
+}
+.circle:hover div{
+	visibility: visible;
+}
+.circle div img{
+	height: 20px;
+}
+.form span[name='type']{
+	font-size: 25px;
+	text-decoration: underline;
+}
+input[type='submit']{
+	float: right;
+}
+.shifttobroker{
+	float: left;
+}
+.edit-profile{
+	float: right;
+	padding: 5px;
+}
+.edit-profile img{
+	height: 30px;
+	/*float: right;*/
+}
+.edit-profile:hover{
+	background-color: #90c923;
+}
+@media screen and (max-width : 992px){
+.form{
+	width: 100%;
+ }
+}
+#wishlist{
+	height: 100%;
+}
+#wishlist iframe{
+	width: 100%;
+	height: 100%
 }

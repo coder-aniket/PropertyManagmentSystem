@@ -3,6 +3,7 @@ from django.contrib.auth import authenticate,login,logout
 from . import views
 from django.db import models
 from django.contrib.auth.models import User
+from django.contrib import messages
 # Create your models here.
 p_choices = [('Broker','Broker'),('User','User')]   # user profile type choice
 class Profile(models.Model):
@@ -33,15 +34,19 @@ class Profile(models.Model):
         us = authenticate(request, username=email, password=password)
         if us is not None:
             login(request,us)
+            messages.info(request,"Successfully Log In")
             # Redirect to a success page.
             response = redirect('index')
             return response
         else:
-            return HttpResponse("failed")
+            messages.info(request, "Log In Failed")
+            response = redirect('index')
+            return response
 
     def log_out(request):
         logout(request)
         # Redirect to a success page.
+        messages.info(request, "Successfully log out")
         response = redirect('index')
         return response
 
@@ -56,13 +61,28 @@ class Profile(models.Model):
                 us = User.objects.get(id=pu_id[0].user_id)
                 us.set_password(password)
                 us.save()
+                messages.info(request, "Successfully password reset")
                 # Redirect to a success page.
                 response = redirect('index')
                 return response
         except User.DoesNotExist:
-            return HttpResponse("failed");
+            messages.info(request, "User does not exist")
+            response = redirect('index')
+            return response
         except Profile.DoesNotExist:
-            return HttpResponse("failed");
+            messages.info(request, "User does not exist")
+            response = redirect('index')
+            return response
+
+    def editprofile(request):
+        profile = Profile.objects.get(user=request.user.id)
+        profile.first_name = request.POST['fname']
+        profile.last_name = request.POST['lname']
+        profile.email = request.POST['email']
+        profile.contact = request.POST['contact']
+        profile.save()
+        Broker.addbrokerinfo(request)
+        return redirect('profile')
 
     def mwishlist(request,pid):
         profile = Profile.objects.get(user=request.user.id)
@@ -85,3 +105,27 @@ class Profile(models.Model):
             profile.wishlist=str(pid)
         profile.save()
         return HttpResponse("")
+
+
+class Broker(models.Model):
+    broker = models.OneToOneField(User,on_delete=models.CASCADE)
+    img = models.FileField(upload_to='broker/')
+    quotes = models.CharField(max_length=30)
+
+    def __str__(self):
+        return self.broker.get_full_name()
+
+    def addbrokerinfo(request):
+        broker = request.user
+        img = request.FILES.get('profile_pic')
+        quotes = request.POST['quotes']
+        try:
+            broker = Broker.objects.get(broker=request.user.id)
+            broker.img=img
+            broker.quotes=quotes
+            # broker.refresh_from_db()
+            broker.save()
+        except:
+            broker = Broker(broker=broker,img=img,quotes=quotes)
+            broker.save()
+        return HttpResponse();

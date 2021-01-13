@@ -12,7 +12,7 @@ else if (this.id==2) {
 }
 else if (this.id==3) {
 	// $('#main_pannel>div').addClass('hide');
-	$('#property').removeClass('hide');
+	$('#wishlist').removeClass('hide');
 }
 else if (this.id==4) {
 	// $('#main_pannel>div').addClass('hide');

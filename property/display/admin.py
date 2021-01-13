@@ -1,7 +1,8 @@
 from django.contrib import admin
-from .user import Profile
+from .user import Profile,Broker
 from .property import Feature,imgtable
 from .enquiry import Enquiry
+from .subscriber import Subscriber
 class Enquerym(admin.ModelAdmin):
     # a list of displayed columns name.
     list_display = ['name','email','contact','message','property_id','status']
@@ -27,3 +28,5 @@ admin.site.register(Profile,Profilem)
 admin.site.register(Feature,Featurem)
 admin.site.register(imgtable,imgtablem)
 admin.site.register(Enquiry,Enquerym)
+admin.site.register(Broker)
+admin.site.register(Subscriber)

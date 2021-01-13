@@ -3,7 +3,9 @@ from django.shortcuts import render,redirect,HttpResponse
 # from django.contrib.auth.models import User
 from .property import Feature,imgtable
 from .enquiry import Enquiry
+from django.db.models import Count
 # Create your views here.
+message = ""
 def index(request):
    from .user import Profile
    property = Feature.objects.all()
@@ -22,11 +24,12 @@ def index(request):
    else:
       wishlist = 0
 
-   broker = Profile.objects.filter(type='Broker')[:8]
+   broker = sortedbrokers(request)
 
    statspannel = {'profc':profc,'propc':propc,'propsc':propsc,'profbc':porfbc}
 
-   return render(request,'index.html',{'property':property,'img':imgs,'wid':wishlist,'stats':statspannel,'broker':broker})
+   return render(request,'index.html',{'property':property,'img':imgs,'wid':wishlist,'stats':statspannel,
+                                       'broker':broker,'message':message})
 
 def add_property(request):
    if request.user.id:
@@ -45,7 +48,7 @@ def edit_property(request,pid):     # pid is id of property for edit
    for i in image:
       imgs.append([count,i])
       count += 1
-   # print(imgs)
+   # print(imgs[1][1].id)
    return render(request,'edit_property.html', {'property':property,'img':imgs,'pid':pid})
 
 def my_property(request,nav=0,step=" "):
@@ -53,9 +56,9 @@ def my_property(request,nav=0,step=" "):
       from .user import Profile
       if step == "prev":
          last = nav
-         initial = nav - 1
+         initial = nav - 12
       else:
-         last = nav + 1
+         last = nav + 12
          initial = nav
 
       if request.method=='POST':
@@ -65,18 +68,19 @@ def my_property(request,nav=0,step=" "):
          property = Feature.objects.filter(user_id=request.user.id)[initial:last + 1]
       print(property)
       try:
-         if property[1]:
+         if property[12]:
             end = True
       except:
          end = False
-      property = property[:1]
+      property = property[:12]
       wishlist = Profile.objects.get(user=request.user.id).wishlist
-      wishlist = [int(n) for n in wishlist.split()]
+      if wishlist:
+         wishlist = [int(n) for n in wishlist.split()]
       # print(wishlist)
       imgs = firstimage(property)
       pindex = {'initial': initial, 'last': last}
       return render(request,'my_property.html',{'property':property,'img':imgs,'wid':wishlist,
-                                                'pindex':pindex,'end':end,'myproperty':True,'end':end})
+                                                'pindex':pindex,'end':end,'myproperty':True})
    response = redirect('index')
    return response
 
@@ -106,7 +110,8 @@ def list(request,nav=0,step=" "):
    if request.user.id:
       from .user import Profile
       wishlist = Profile.objects.get(user=request.user.id).wishlist
-      wishlist = [int(n) for n in wishlist.split()]
+      if wishlist:
+         wishlist = [int(n) for n in wishlist.split()]
 
    pindex = {'initial':initial,'last':last}
 
@@ -157,11 +162,40 @@ def list_details(request,pid,eid=0):
                                              'rp':rp,'imgs':imgs,'enquiry':enquiry})
 
 def team(request):
-   from .user import Profile
-   profile = Profile.objects.filter(type='Broker')[:8]
-   # print(profile)
-   return render(request,'team.html', {'profile': profile})
+   brokers_img = sortedbrokers(request)
+   return render(request,'team.html',{'sorted':brokers_img})
 
+def sortedbrokers(request):
+   from .user import Profile, Broker
+   from .property import Property
+   brokers = {}
+   property = Property.objects.filter(status='Sold')
+   for p in property:
+      if p.user not in brokers.keys():
+         brokers[p.user] = 1
+      else:
+         brokers[p.user] += 1
+   sorted_brokers = sorted(brokers.values(), reverse=True)
+   # print(sorted_brokers)
+   sorted_b = {}
+   for i in sorted_brokers[:8]:
+      for k in brokers.keys():
+         if brokers[k] == i:
+            sorted_b[k] = brokers[k]
+   # print(sorted_b)
+   brokers_img = []
+   for broker in sorted_b.keys():
+      if broker:
+         if Broker.objects.filter(broker=broker):
+            brokers_img.append(Broker.objects.filter(broker=broker)[0])
+         else:
+            brokers_img.append(broker)
+      # print(broker)
+   # print(brokers_img)
+   return brokers_img
+
+from django.views.decorators.clickjacking import xframe_options_sameorigin
+@xframe_options_sameorigin
 def wishlist(request):
    from .user import Profile
    wid = []
@@ -176,7 +210,7 @@ def wishlist(request):
             property.append(Feature.objects.get(id=wi))
             imgs.append(imgtable.objects.filter(property=wi).first())
          print(imgs)
-         return render(request,'wishlist.html',{'property':property,'wid':wid})
+         return render(request,'wishlist.html',{'property':property,'wid':wid,'img':imgs})
       return render(request,'wishlist.html')
    return redirect('index')
 
@@ -184,10 +218,8 @@ def wishlist(request):
 def contact(request):
    return render(request,'contact.html')
 
-def broker(request):
-   return render(request,'broker.html')
-
-def profile(request):
+def profile(request,nav=0,step=""):
+   from .user import Broker
    if request.user.id:
       from .user import Profile
       profile = Profile.objects.get(user=request.user.id)
@@ -198,8 +230,30 @@ def profile(request):
          if eqp:
             for eqpid in eqp:
                enquiry.append(eqpid)
-      # print(enquiry)
-      return render(request,'profile.html',{'profile':profile,'enquiry':enquiry})
+      if profile.type == 'Broker':
+         try:
+            broker = Broker.objects.get(broker=request.user.id)
+         except:
+            broker = False
+      else:
+         broker = False
+      initial = 0
+      last = 12
+      if step == "prev":
+         last = nav
+         initial = nav - 12
+      else:
+         last = nav + 12
+         initial = nav
+      try:
+         if enquiry[12]:
+            end = True
+      except:
+         end = False
+      enquiry = enquiry[initial:last]
+      pindex = {'initial': initial, 'last': last}
+      return render(request,'profile.html',{'profile':profile,'enquiry':enquiry,'broker':broker,
+                                            'pindex':pindex,'end':end})
    response = redirect('index')
    return response
 
@@ -251,36 +305,3 @@ def filterby(request,property):
       property = property.filter(price__lte=request.POST['max_price'])
 
    return property
-
-
-
-
-from django.views.decorators.clickjacking import xframe_options_exempt
-from django.views.decorators.clickjacking import xframe_options_sameorigin
-
-def test(request):
-   p = Feature.objects.all()[:2]
-   return render(request,'test.html',{'property':p})
-
-@xframe_options_exempt
-def test2(request):
-   enquiry = Enquiry.objects.all().filter(user_id=request.user.id)
-   # print(enquiry[0].property_id.id)
-   image = imgtable.objects.all()
-   ids = []
-   imgs = []
-   for p in enquiry:  # properties
-      if p.property_id not in ids:
-         ids.append(p.property_id.id)
-   # print(ids)
-   for id in ids:  # first image for per id
-      for i in image:
-         if id == i.property_id:
-            imgs.append(i)
-            break
-   # print(enquiry[0].property_id.id)
-   # print(imgs[0])
-   return render(request,'test2.html',{'enquiry':enquiry,'img':imgs})
-
-def abc(request):
-   return render(request,'test.html')

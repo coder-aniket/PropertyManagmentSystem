@@ -19,7 +19,7 @@ active_tab
 {% block body %}
 <section id="admin_pannel">
 	<div class="row"><br>
-		<div class="col-3">
+		<div class="">
 			<section id="side_pannel">
 				<nav class="navbar">
 		        <div class="">
@@ -43,18 +43,6 @@ active_tab
 							<li>
 		                        <a id='2' class="tag_m">Enquiry</a>
 		                    </li>
-
-		  <!--                   <li>
-		                        <a id="3" class="tag_m">Property</a>
-		                    </li>
-		                    
-		                    <li>
-		                        <a id="4" class="tag_m">Broker</a>
-		                    </li>
-
-		                    <li>
-		                        <a id="5" class="tag_m">User</a>
-		                    </li> -->
 		                    
 		                </ul>
 		            </div>
@@ -65,23 +53,81 @@ active_tab
 			</section>
 		</div>
 	
-		<div class="col-9">
+		<div style="width: 100%;overflow-y: auto;overflow-x: hidden;" class="">
 			<section id="main_pannel" class="container">
 				<br>
 
 				<div id="profile" class="container">
-					First name: {{ request.user.first_name }}<br>
-					Last Name: {{ request.user.last_name }}<br>
-					Email: {{ request.user.email }}<br>
-					Contact: {{ profile.contact }}<br>
-					<br>
-					{% if profile.type != "Broker" %}
-					<a class="btn btn-info" href="/shifttobroker/">Shift To Broker</a>
-					{% endif %}
+					<div class="">
+						<div class="form">
+							{% if profile.type == "Broker" %}
+							<div class="circle" style="background-image: url(/media/{{broker.img}}); background-size: cover;">
+								<div>
+									<img src="{% static 'img/camera-solid.svg' %}">Add Profile Picture
+								</div>
+							</div>
+							{% endif%}
+							<span name="type">{{profile.type}}</span>
+							<span class="edit-profile"><img src="{% static 'img/user-edit-solid.svg' %}"></span>
+							<br><br>
+							<form action="/editprofile/" method="POST" enctype="multipart/form-data" name="editprofile">
+								{% csrf_token %}
+								<div class="row">
+									<div class="col-sm-6">
+										<span>First name:</span><input type="text" name="fname" value="{{ request.user.first_name }}" class="form-control" disabled> 
+									</div>
+									<div class="col-sm-6">
+										<span>Last Name: </span><input type="text" name="lname" value="{{ request.user.last_name }}" class="form-control" disabled>
+									</div>
+								</div><br>
+								<div class="row">
+									<div class="col-sm-12">
+										<span>Email: </span><input type="email" name="email" value="{{ request.user.email }}" class="form-control" disabled>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-sm-12">
+										<span>Contact: </span><input type="integer" name="contact" value="{{ profile.contact }}" class="form-control" disabled>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-sm-12">
+										<span>Quotes: </span><input type="text" name="quotes" value="{{broker.quotes}}" class="form-control" disabled>
+									</div>
+								</div><br>
+								<div class="row">
+									<div class="col-sm-12">
+										<div class="col-sm-6">
+											{% if profile.type != "Broker" %}
+											<a class="btn btn-info shifttobroker" onclick="shifttobroker()">Shift To Broker</a>
+											{% endif %}
+										</div>
+										<div class="col-sm-6">
+											<input type="submit" name="submit" value="Submit" class="btn btn-success hide" disabled>
+										</div>
+									</div>
+								</div>
+								<input type="file" name="profile_pic" class="hide" disabled required>
+							</form>
+						</div>
+					</div>
 				</div>
 
 				<div id="enquiry" class="container hide">
+						
 					<section >
+						<div class="navigation">
+							{% if pindex.initial %}
+							<a href="/profile/{{pindex.initial}}/prev/">
+								<img class="arrow arrowb" src="{% static 'img/angle-left-solid.svg' %}">
+							</a>
+							{% endif %}
+							{% if end %}
+							<a href="/profile/{{pindex.last}}/next/">
+								<img class="arrow arrowb" src="{% static 'img/angle-right-solid.svg' %}">
+							</a>
+							{% endif %}
+						</div>
 					 <div class="">
 					  <div class="row">
 					  	
@@ -99,13 +145,17 @@ active_tab
 							   <ul class="nav_list">
 							     <li><span>Bedrooms:</span> {{ e.property_id.bedrooms}}</li>
 								 <li><span>Bathrooms:</span> {{ e.property_id.bathrooms}}</li>
-								 <li><span>Land size:</span> {{ e.property_id.property_size }}</li>
+								 <li><span>Land size:</span> {{ e.property_id.property_size }} sq. ft. </li>
 							   </ul>
 						   
 							   <ul class="nav_list_1">
 							     <li><span class="date">{{ e.property_id.year }} years ago</span></li>
+							     {% if e.status != 'Close' %}
 								 <li><span class="comp"><a href="/close/{{e.id}}/">CLOSE</a></span></li>
+								 {% if e.status != 'Seen' %}
 								 <li><span class="det"><a href="/seen/{{e.id}}/">SEEN</a></span></li>
+								 {% endif %}
+								 {% endif %}
 							   </ul>
 							</div>
 						  </div>
@@ -114,82 +164,48 @@ active_tab
 						</div>
 					   </div>
 					  </div>
-					</section>
-				</div>
-
-<!-- 				<div id="property" class="container hide">
-					<section>
-						<div class="container">
-							<table>
-								<tr>
-									<td>Property Id
-										<button type="button" class="btn btn-info btn-sm">
-							          		<span class="glyphicon glyphicon-sort"></span>
-							          	</button>
-							         </td>
-							        <td>Title
-							        	<button type="button" class="btn btn-info btn-sm">
-							          		<span class="glyphicon glyphicon-sort"></span>
-							          	</button>
-							         </td>
-							        <td>Location
-							        	<button type="button" class="btn btn-info btn-sm">
-							          		<span class="glyphicon glyphicon-sort"></span>
-							          	</button>
-							        </td>
-							        <td>Price
-							        	<button type="button" class="btn btn-info btn-sm">
-							          		<span class="glyphicon glyphicon-sort"></span>
-							          	</button>
-							        </td>
-							        <td>Area
-							        	<button type="button" class="btn btn-info btn-sm">
-							          		<span class="glyphicon glyphicon-sort"></span>
-							          	</button>
-							        </td>
-							        <td>Property Type
-							        	<button type="button" class="btn btn-info btn-sm">
-							          		<span class="glyphicon glyphicon-sort"></span>
-							          	</button>
-							        </td>
-							        <td>Neighbour Hood
-							        	<button type="button" class="btn btn-info btn-sm">
-							          		<span class="glyphicon glyphicon-sort"></span>
-							          	</button>
-							        </td>
-							        <td>Bedrooms
-							        	<button type="button" class="btn btn-info btn-sm">
-							          		<span class="glyphicon glyphicon-sort"></span>
-							          	</button>
-							        </td>
-							        <td>Bathrooms<button type="button" class="btn btn-info btn-sm">
-							          		<span class="glyphicon glyphicon-sort"></span>
-							          	</button>
-							        </td>
-							        <td>Year
-							        	<button type="button" class="btn btn-info btn-sm">
-							          		<span class="glyphicon glyphicon-sort"></span>
-							          	</button>
-							        </td>
-							    </tr>
-							</table>
-						</div>
-					</section>
-				</div>
-
-				<div id="broker" class="container hide">
-				</div>
-
-				<div id="user" class="container hide">
-					<div class="container">
-						<table>
-							<tr><td>User Id</td><td>Name</td><td>Email</td><td>Contact</td><td>Default Location</td></tr>
-						</table>
+					  <div class="navigation">
+						{% if pindex.initial %}
+						<a href="/profile/{{pindex.initial}}/prev/">
+							<img class="arrow arrowb" src="{% static 'img/angle-left-solid.svg' %}">
+						</a>
+						{% endif %}
+						{% if end %}
+						<a href="/profile/{{pindex.last}}/next/">
+							<img class="arrow arrowb" src="{% static 'img/angle-right-solid.svg' %}">
+						</a>
+						{% endif %}
 					</div>
-				</div> -->
+					</section>
+				</div>
+
+
 			</section>
 		</div>
 	</div>
 </section>
+<script type="text/javascript">
+	$(document).ready(function(){
+		$('.edit-profile').click(function(){		
+			if ($('input').attr('disabled')) {
+				$('input').removeAttr('disabled');
+				$("input[type='submit']").removeClass('hide');
+			}
+			else{
+				$('input').attr('disabled','disabled');
+				$("input[type='submit']").addClass('hide');
+			}		
+		});
+		$('.circle div').click(function(){
+			$("input[name='profile_pic']").trigger('click');
+		});
 
+
+	});
+	function shifttobroker(){
+		if (confirm("Are Really Want To Shift To Broker!")) {
+			location.href = "{% url 'shifttobroker' %}"
+		}
+	}
+</script>
 {% endblock %}

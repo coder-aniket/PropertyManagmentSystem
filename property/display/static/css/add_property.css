@@ -243,14 +243,16 @@ input[type="file"]{
 .article-slide .carousel-indicators img{
   position: absolute;
 }
-#cross{
+#article-photo-carousel .cross{
   position: relative;
   z-index: 4;
   float: right;
   height: 25%;
   width: 25%;
+  top:7px;
+  margin-right: 7px;
 }
-#cross_expand{
+#article-photo-carousel .cross_expand{
   height: 100%;
   height: 100%;
   background-color: #ff000042;

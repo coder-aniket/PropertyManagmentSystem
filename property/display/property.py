@@ -1,11 +1,11 @@
 from django.db import models
 from django.shortcuts import render,HttpResponse,redirect
 from django.contrib.auth.models import User
-import os
+from django.contrib import messages
 
-p_choices = [('Apartment','Apartment'),('House','House'),('Office','Office'),('Land','Land')]   # property type choice
+p_choices = [('Appartment','Appartment'),('House','House'),('Office','Office'),('Land','Land')]   # property type choice
 o_choices = [('For Rent','For Rent'),('For Sale','For Sale')]                                   # offer type choice
-s_choices = [('Available','Available'),('Sold','Sold')]                                         # status choice
+s_choices = [('Available','Available'),('Sold','Sold'),('Block','Block')]                       # status choice
 
 class Property(models.Model):
     user = models.ForeignKey(User, on_delete=models.RESTRICT)
@@ -118,13 +118,14 @@ class Feature(Property):
                 Swimming_Pool=Swimming_Pool)
                 f[0].refresh_from_db()
                 imgtable.add_image(request, f[0])
-
+                messages.info(request,"Property Edited")
                 for delf in del_file:
                     if delf:
-                        print(delf)
-                        img=imgtable.objects.get(img=delf).delete()
-                        print(img)
+                        # print(delf)
+                        img=imgtable.objects.get(id=delf).delete()
+                        # print(img)
             else:
+                messages.info(request, "Property Added")
                 f = Feature(user_id=request.user.id,property_title=property_title,property_type=property_type,
                           offer_type=offer_type,city=city,zip_code=zip_code,neighborhood=neighborhood,street=street,
                           bedrooms=bedrooms,bathrooms=bathrooms,property_size=property_size,year=year,price=price,

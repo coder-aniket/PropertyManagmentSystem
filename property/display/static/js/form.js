@@ -1,6 +1,7 @@
 function validate(){
-  
-  var flag=0;
+  if ($('#form').hasClass('m-fadeIn'))
+  {
+    var flag=0;
 
     if($("input[name='email']").val()==""){
         $("input[name='email']").next("span").text("field should not be empty");
@@ -54,6 +55,8 @@ function validate(){
     else{
       return true;
     }
+  }
+
 }
 
 $(document).ready(function(){
@@ -109,28 +112,29 @@ $(document).ready(function(){
     $(this).next("span").text("");
   });
 
-  function form_toggle(){
+  function form_toggle(){ 
     $("#form").toggleClass("m-fadeOut");
     $("#form").toggleClass("m-fadeIn");
   }
 
-$(".formlink").click(function(){
-  form_toggle();
-    if ($("#form").hasClass("m-fadeIn")) {
-      if ($("#forget-tab").hasClass("active")) {
-        $(".lbutton").trigger("click");
+  $(".formlink").click(function(){
+    form_toggle();
+      if ($("#form").hasClass("m-fadeIn")) {
+        if ($("#forget-tab").hasClass("active")) {
+          $(".lbutton").trigger("click");
+        }
+        if ($("#login-tab").hasClass("active")) {
+          $("#register-tab").trigger("click");
+        }
       }
-      if ($("#login-tab").hasClass("active")) {
-        $("#register-tab").trigger("click");
-      }
-    }
-});
-// alert("");
-$("#form").click(function(){
-  form_toggle();
+  });
+
+  $("#form").click(function(){
+    form_toggle();
+  });
+
+  $("#form1").click(function(){
+    form_toggle();
+  });
 });
 
-$("#form1").click(function(){
-  form_toggle();
-});
-});

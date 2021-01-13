@@ -25,7 +25,7 @@ active_tab
 	   <div class="list_detail_lm1 clearfix">
 	     <div class="carousel slide article-slide" id="article-photo-carousel">
 	     	<h3>Property Title</h3><br>
-			<input type="text" placeholder="Property Title" class="form-control" name="property_title" value="{{property.property_title}}"><br>
+			<input type="text" placeholder="Property Title" class="form-control" name="property_title" value="{{property.property_title}}" required><br>
 		  <!-- Wrapper for slides -->
 		  <div class="carousel-inner cont-slider">
 		  	{% if img %}
@@ -57,9 +57,9 @@ active_tab
 		  <ol class="carousel-indicators scroll">
 		  	{% if img %}
 		  	{% for i in img %}
-		    <li class="" data-slide-to="{{i.0}}" data-target="#article-photo-carousel">
+		    <li class="" data-slide-to="{{i.0}}" id="#article-photo-carousel" data-target="#article-photo-carousel">
 		      <img alt="" src="/media/{{i.1.img}}">
-		      <img id="cross" name="/media/{{i.1.img}}" class="cross" src="{% static 'img/times-solid.svg' %}">
+		      <img id="cross" iid="{{i.1.id}}" name="/media/{{i.1.img}}" class="cross" src="{% static 'img/times-solid.svg' %}">
 		    </li>
 		    {% endfor %}
 		    {% else %}
@@ -82,18 +82,23 @@ active_tab
 	   <script type="text/javascript">
 		  	$(document).ready(function(){
 		  		var del_img = "";
-		  		$(".cross").click(function(){
-		  			$(this).toggleClass(".cross_expand");
-		  			if(del_img.includes($(this).attr("name").replace("/media/","")))
+		  		$("#article-photo-carousel .carousel-indicators #cross").click(function(){
+		  			if ($(this).hasClass('cross')){
+		  				$(this).removeClass('cross').addClass('cross_expand');
+		  			}
+		  			else{
+		  				$(this).removeClass('cross_expand').addClass('cross');
+		  			}
+		  			if(del_img.includes($(this).attr("iid")))
 		  			{
-		  				$(this).attr('id','cross_expand');
-		  				del_img=del_img.replace(" + " + $(this).attr("name").replace("/media/",""),"");
+		  				// $(this).attr('id','cross_expand');
+		  				del_img=del_img.replace(" + " + $(this).attr("iid"),"");
 		  				$("#delete_img").attr('value',del_img);
 		  			}
 		  			else
 		  			{
-		  				$(this).attr('id','cross');
-		  				del_img = del_img +" + "+ $(this).attr("name").replace("/media/","");
+		  				// $(this).attr('id','cross');
+		  				del_img = del_img +" + "+ $(this).attr("iid");
 						$("#delete_img").attr('value',del_img);
 					}
 		  		});
@@ -209,7 +214,7 @@ active_tab
 	 </div>
 	</div>
 <!--  -->
-	<div class="col-sm-3">
+	<div class="col-sm-3"><br><br>
 	 <div class="list_detail_rm clearfix">
 	  <div class="list_detail_rm_1 clearfix">
 	    <ul>

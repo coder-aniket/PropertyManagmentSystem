@@ -169,6 +169,7 @@ active_tab
 					   		src="/media/{{i.img}}" 
 					   		{% endif %}
 		   				{% endfor %} 
+		   				src="{% static 'img/14.jpg' %}"
 		   		class="iw" alt="VMJMBOE PROPERTY"></a>
 			    <div class="list_1_1i clearfix">
 				  <div class="overflow tile_title"><h3><a href="/list_detail/{{p.id}}">{{ p.property_title }}</a></h3></div>
@@ -211,7 +212,7 @@ active_tab
 	   <h3>Reply to the listing</h3>
 
 		{% if enquiry %}
-		<form >
+		<form>
 	    	{% csrf_token %}
 		   <input class="form-control" name="name" placeholder="Your name" type="text" {% if enquiry %} value="{{enquiry.name}}" disabled="disabled" {% else %}required {% endif %}>
 		   <input class="form-control" name="contact" placeholder="contact" type="text" {% if enquiry %} value="{{enquiry.contact}}" disabled="disabled" {% else %}required {% endif %}>
@@ -221,7 +222,7 @@ active_tab
 		   </form>
 
 		{% else %}
-		<form action="/enquiry/{{p.id}}" method="POST">
+		<form action="/enquiry/{{property.id}}" method="POST">
 	    	{% csrf_token %}
 		   <input class="form-control" name="name" placeholder="Your name" type="text" required>
 		   <input class="form-control" name="contact" placeholder="contact" type="text" required>

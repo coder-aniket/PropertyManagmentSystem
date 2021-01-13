@@ -1,6 +1,7 @@
 function validate(){
 	
-	var flag=0;
+
+  	var flag=0;
 
     if($("input[name='email']").val()==""){
         $("input[name='email']").next("span").text("field should not be empty");

@@ -148,15 +148,13 @@
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav navbar-right menu">
-                	<li>
-                        <a id="login_a" class="tag_m hide" href="#" data-toggle="dropdown" role="button" aria-expanded="false">
-							{% if request.user.username %} {{request.user.first_name}} {% else %} User {% endif %}<span class="caret"></span></a>
-						<ul class="dropdown-menu drop_1" role="menu">
-					  	<li class="formlink"><a>Log In</a></li>
-						<li><a {% if request.user.username %} href="{% url 'profile' %} " {% else %} onclick="form_toggle()" {% endif %}>Profile</a></li>
-						<li><a href="{% url 'list' %}">Bookmark</a></li>
-						<li><a href="{% url 'list' %}">Listed</a></li>
-						{% if request.user.username %} <li> <a href="logout/"><i class="fa fa-user"></i> Log Out </a></li> {% else %} {% endif %}
+                	<li class="dropdown" >
+					  <a id="login_a" class="tag_m hide" href="#" {% if not request.user.username %} onclick="form_toggle()" {% else %} data-toggle="dropdown" role="button" aria-expanded="false"{% endif %}>
+						  {% if request.user.username %} {{request.user.first_name}} {% else %} User {% endif %}<span class="caret"></span></a>
+					  <ul class="dropdown-menu drop_1" role="menu">
+						<li><a class=""  href="{% url 'profile' %} " >Profile</a></li>
+						<li><a class=""  href="{% url 'wishlist' %}">Wishlist</a></li>
+						<li><a class="" href="{% url 'logout' %}">Log Out</a></li>
 					  </ul>
                     </li>
 
@@ -217,7 +215,7 @@
    </div>
    <div class="col-sm-4">
     <div class="reg_home_2 text-right clearfix">
-	 <h5><a class="button mgt" href="#top" onclick="form_collapse()">REGISTER NOW</a></h5>
+	 <h5><a class="button mgt" href="#top" onclick="form_toggle()">REGISTER NOW</a></h5>
 	</div>
    </div>
   </div>
@@ -269,8 +267,11 @@
 	 <div class="footer_1i2 clearfix">
        <h4 class="mgt">NEWSLATTER</h4>
        <p>Subscribe to our newsletter and we will inform your about newset projects.</p>
-	   <input class="form-control" placeholder="Enter Your Email" type="text">
-	   <h5 class="mgt"><a class="button" href="#">SUBSCRIBE</a></h5>
+       <form action="{% url 'addsubscriber' %}" method="POST">
+       	{% csrf_token %}
+       	<input class="form-control" name="semail" placeholder="Enter Your Email" type="email" value="{{request.user.email}}">
+	   <h5 class="mgt"><input type="submit" name="Subscribe" class="button" value="SUBSCRIBE"></h5>
+       </form>  
 	 </div>
 	</div>
    </div>
@@ -289,14 +290,20 @@
   </div>
  </div>
 </section>
-
+{% for message in messages %}
+<message style="display: none;">{{message}}</message>
+{% endfor %}
 <iframe class="backend" name="backend" ></iframe>
-
 <script>
    	function form_toggle(){
     	$("#form").toggleClass("m-fadeOut");
 	    $("#form").toggleClass("m-fadeIn");
-	  }
+	}
+
+  	if ($('message').text()) {
+  		alert($("message").text());
+  	}
+
 </script>
 </body>
 </html>
