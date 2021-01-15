@@ -47,7 +47,7 @@ class Feature(Property):
         verbose_name = 'Properties'
         verbose_name_plural ='Properties'
 
-    def add_property(request,pid):
+    def add_property(request,pid=0):
         if request.method == "POST":
             property_title = request.POST['property_title']
             property_type = request.POST['property_type']

@@ -66,7 +66,7 @@ def my_property(request,nav=0,step=" "):
          property = filterby(request,property)
       else:
          property = Feature.objects.filter(user_id=request.user.id)[initial:last + 1]
-      print(property)
+      # print(property)
       try:
          if property[12]:
             end = True
