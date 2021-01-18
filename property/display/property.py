@@ -21,7 +21,7 @@ class Property(models.Model):
     property_size = models.SmallIntegerField(null=False)
     year = models.IntegerField(null=False,default=2020)
     price = models.IntegerField()
-    location = models.CharField(max_length=15,null=False)
+    location = models.TextField()
     details = models.TextField()
     contact = models.IntegerField(null=True)
     status = models.CharField(max_length=10,default="Available",choices=s_choices)

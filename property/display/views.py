@@ -118,6 +118,7 @@ def list(request,nav=0,step=" "):
    return render(request,'list.html',{'property':property,'img':imgs,'wid':wishlist,'pindex':pindex,'end':end})
 
 def list_details(request,pid,eid=0):
+   from .user import Profile
    property = Feature.objects.get(id=pid)
    # print(p)
    flist = []
@@ -158,8 +159,13 @@ def list_details(request,pid,eid=0):
    else:
       enquiry = False
    # print(enquiry.name)
+   wishlist = Profile.objects.get(user=request.user.id).wishlist
+   if wishlist.count(str(pid)):
+      wishlist = True
+   else:
+      wishlist = False
    return render(request,'list_detail.html',{'property':property,'flist':flist,'img':image,'count':count,
-                                             'rp':rp,'imgs':imgs,'enquiry':enquiry})
+                                             'rp':rp,'imgs':imgs,'enquiry':enquiry,'wishlist':wishlist})
 
 def team(request):
    brokers_img = sortedbrokers(request)
@@ -209,7 +215,10 @@ def wishlist(request):
             wid.append(int(wi))
             property.append(Feature.objects.get(id=wi))
             imgs.append(imgtable.objects.filter(property=wi).first())
-         print(imgs)
+         # print(imgs)
+         if request.method=='POST':
+            # print(filterby(request,property))
+             print(Profile.objects.all(),property)
          return render(request,'wishlist.html',{'property':property,'wid':wid,'img':imgs})
       return render(request,'wishlist.html')
    return redirect('index')

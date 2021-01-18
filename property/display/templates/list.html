@@ -13,6 +13,7 @@ Property Managment System | list
 {% block list %}
 active_tab
 {% endblock %}
+
 {% block body%}
 
 <section id="center" class="center_blog_d">
@@ -41,7 +42,7 @@ active_tab
 
 <section id="booking">
  <div class="container">
- <form {% if myproperty %} action="{% url 'my_property' %}"{% else %} action="{% url 'list' %}" {% endif %} method="POST">
+ <form {% if myproperty %} action="{% url 'my_property' %}" {% elif request.path == '/wishlist/' %} action="{% url 'wishlist' %}" {% else %} action="{% url 'list' %}" {% endif %} method="POST">
  	{% csrf_token %}
   <div class="row">
    <div class="booking_1 clearfix">

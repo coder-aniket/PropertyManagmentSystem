@@ -18,40 +18,44 @@ active_tab
 
 {% block body %}
 <section id="admin_pannel">
-	<div class="row"><br>
-		<div class="">
+	<!-- <div class="row"><br> -->
+		<!-- <div class=""> -->
 			<section id="side_pannel">
-				<nav class="navbar">
-		        <div class="">
+<!-- 				<nav class="navbar">
+		        <div class=""> -->
 		            <!-- Brand and toggle get grouped for better mobile display -->
-		            <div class="navbar-header">
+		           <!--  <div class="navbar-header">
 		                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-2">
 		                    <span class="sr-only">Toggle navigation</span>
 		                    <span class="icon-bar"></span>
 		                    <span class="icon-bar"></span>
 		                    <span class="icon-bar"></span>
 		                </button>
-		            </div>
+		            </div> -->
 		            <!-- Collect the nav links, forms, and other content for toggling -->
-		            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-2">
-		                <ul class="nav menu">
+		            <!-- <br> -->
+		            <div class="" id="bs-example-navbar-collapse-2">
+		                <ul class="nav bottom_menu">
 
 		                	<li>
-		                        <a id='1' class="tag_m active_tab">Profile</a>
+		                        <a id='1' class="tag_m active_tab"><img src="{%static 'img/user-solid.svg' %}">Profile</a>
 		                    </li>
-
+		                    <br>
 							<li>
-		                        <a id='2' class="tag_m">Enquiry</a>
+		                        <a id='2' class="tag_m"><img src="{%static 'img/envelope-open-text-solid.svg' %}">Enquiry</a>
 		                    </li>
-		                    
+		                    <br>
+							<li>
+		                        <a id='3' class="tag_m"><img src="{%static 'img/heart-solid.svg' %}">Wishlist</a>
+		                    </li>
 		                </ul>
 		            </div>
 		            <!-- /.navbar-collapse -->
-		        </div>
+		        <!-- </div> -->
 		        <!-- /.container-fluid -->
-		    	</nav>
+		    	<!-- </nav> -->
 			</section>
-		</div>
+		<!-- </div> -->
 	
 		<div style="width: 100%;overflow-y: auto;overflow-x: hidden;" class="">
 			<section id="main_pannel" class="container">
@@ -115,7 +119,7 @@ active_tab
 
 				<div id="enquiry" class="container hide">
 						
-					<section >
+					<!-- <section> -->
 						<div class="navigation">
 							{% if pindex.initial %}
 							<a href="/profile/{{pindex.initial}}/prev/">
@@ -176,13 +180,16 @@ active_tab
 						</a>
 						{% endif %}
 					</div>
-					</section>
+					<!-- </section> -->
 				</div>
 
+				<div id="wishlist" class="container hide">
+					<!-- <iframe id="wishlist_frame"></iframe> -->
+				</div>
 
 			</section>
 		</div>
-	</div>
+	<!-- </div> -->
 </section>
 <script type="text/javascript">
 	$(document).ready(function(){
@@ -200,7 +207,7 @@ active_tab
 			$("input[name='profile_pic']").trigger('click');
 		});
 
-
+$('#wishlist').load('/wishlist/ #prop');
 	});
 	function shifttobroker(){
 		if (confirm("Are Really Want To Shift To Broker!")) {

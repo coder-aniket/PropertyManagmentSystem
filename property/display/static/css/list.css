@@ -115,7 +115,9 @@ margin-top:15px;
 .sold{
   background-color: #76a11fc9;
 }
-
+.nav_list_1{
+display: flex;
+}
 /*********************contact_end****************/
 
 @media screen and (max-width : 767px){

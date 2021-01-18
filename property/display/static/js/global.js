@@ -10,23 +10,42 @@ var secondaryNav = $('.cd-secondary-nav'),
 		}
 	});		
 	/*****Responsive Menu******/
-	if ($('#login_a').hasClass('active_tab') || $('#user_drop').hasClass('active_tab')) {
+	
 		$(window).on('resize', function(){
 			if($(window).width() < 768 ) {
-				$('#login_a').removeClass('hide').addClass('active_tab');
-				$('#user_drop').addClass('hide').removeClass('active_tab');
+				$('#login_a').removeClass('hide');
+				$('#user_drop').addClass('hide');
 			} else {
-				$('#login_a').addClass('hide').removeClass('active_tab');
-				$('#user_drop').removeClass('hide').addClass('active_tab');
+				$('#login_a').addClass('hide');
+				$('#user_drop').removeClass('hide');
 			}
 		});
 		$(window).on('load', function(){
 			if($(window).width() < 768 ) {
-				$('#login_a').removeClass('hide').addClass('active_tab');
-				$('#user_drop').addClass('hide').removeClass('active_tab');
+				$('#login_a').removeClass('hide');
+				$('#user_drop').addClass('hide');
 			} else {
-				$('#login_a').addClass('hide').removeClass('active_tab');
-				$('#user_drop').removeClass('hide').addClass('active_tab');
+				$('#login_a').addClass('hide');
+				$('#user_drop').removeClass('hide');
+			}
+		});
+		if ($('#login_a').hasClass('active_tab') || $('#user_drop').hasClass('active_tab')) {
+			$(window).on('resize', function(){
+			if($(window).width() < 768 ) {
+				$('#login_a').addClass('active_tab');
+				$('#user_drop').removeClass('active_tab');
+			} else {
+				$('#login_a').removeClass('active_tab');
+				$('#user_drop').addClass('active_tab');
+			}
+		});
+		$(window).on('load', function(){
+			if($(window).width() < 768 ) {
+				$('#login_a').addClass('active_tab');
+				$('#user_drop').removeClass('active_tab');
+			} else {
+				$('#login_a').removeClass('active_tab');
+				$('#user_drop').addClass('active_tab');
 			}
 		});
 		}

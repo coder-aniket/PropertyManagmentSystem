@@ -45,7 +45,7 @@ active_tab
 	 <div class="list_detail_lm clearfix">
 	   <div class="list_detail_lm1 clearfix">
 	     <div class="carousel slide article-slide" id="article-photo-carousel">
-	     	<h3>{{ p.property_title }}</h3><br>
+	     	<h3>{{ property.property_title }}</h3><br>
   <!-- Wrapper for slides -->
   <div class="carousel-inner cont-slider">
   	{% if img %}
@@ -201,10 +201,10 @@ active_tab
 	 <div class="list_detail_rm clearfix">
 	  <div class="list_detail_rm_1 clearfix">
 	    <ul>
-		 <li class="bg_1"><i class="fa fa-rupee"></i> 1,300.000</li>
-		 <li class="bg_2"><a href="#"><i class="fa fa-phone"></i> (123) 345-6789</a></li>
-		 <li class="bg_2"><a href="#"><i class="fa fa-map-marker"></i> See Map</a></li>
-		 <li class="bg_2"><a href="#"><i class="fa fa-heart-o"></i> Add to favorite</a></li>
+		 <li class="bg_1"><i class="fa fa-rupee"></i> {{property.price}} </li>
+		 <li class="bg_2"><a href="#"><i class="fa fa-phone"></i> {{property.contact}} </a></li>
+		 <li class="bg_2"><a href="{{property.location}}"><i class="fa fa-map-marker"></i> See Map</a></li>
+		 <li id="wishlist" class="bg_2 {% if wishlist %} wishlist {% endif %}"><a href="/mwishlist/{{property.id}}" target="backend"><i class="fa fa-heart-o" ></i> Add to Wishlist</a></li>
 		 <!-- <li class="bg_2"><a href="#"><i class="fa fa-files-o"></i> Add to Wishlist</a></li> -->
 		</ul>
 	  </div>
@@ -233,8 +233,16 @@ active_tab
 		{% endif %}
 	  </div>
 	 </div>
-	</div>
+	 <br>
+	 <br>
   </div>
  </div>
+ <script type="text/javascript">
+	$(document).ready(function(){
+	  $("#wishlist").click(function(){
+	  	$(this).toggleClass('wishlist');
+	  });
+	});
+</script>
 </section>
 {% endblock%}

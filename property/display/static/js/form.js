@@ -115,6 +115,8 @@ $(document).ready(function(){
   function form_toggle(){ 
     $("#form").toggleClass("m-fadeOut");
     $("#form").toggleClass("m-fadeIn");
+    $("input").removeClass("input_warning");
+    $("input+span").text("");
   }
 
   $(".formlink").click(function(){

@@ -20,7 +20,7 @@
     {% endblock %}
 </head>
 <body>
-
+	
 <section id="top">
  <div class="container">
   <div class="row">
@@ -203,6 +203,7 @@
 
 {% block body %}
 {% endblock %}
+
 {% if not request.user.username %}
 <section id="reg_home">
  <div class="container">
@@ -267,11 +268,11 @@
 	 <div class="footer_1i2 clearfix">
        <h4 class="mgt">NEWSLATTER</h4>
        <p>Subscribe to our newsletter and we will inform your about newset projects.</p>
-       <form action="{% url 'addsubscriber' %}" method="POST">
+       <!-- <form action="{% url 'addsubscriber' %}" method="POST"> -->
        	{% csrf_token %}
        	<input class="form-control" name="semail" placeholder="Enter Your Email" type="email" value="{{request.user.email}}">
 	   <h5 class="mgt"><input type="submit" name="Subscribe" class="button" value="SUBSCRIBE"></h5>
-       </form>  
+       <!-- </form>   -->
 	 </div>
 	</div>
    </div>
@@ -303,7 +304,6 @@
   	if ($('message').text()) {
   		alert($("message").text());
   	}
-
 </script>
 </body>
 </html>
