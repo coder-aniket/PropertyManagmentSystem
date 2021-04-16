@@ -246,8 +246,7 @@ def profile(request,nav=0,step=""):
             broker = False
       else:
          broker = False
-      initial = 0
-      last = 12
+
       if step == "prev":
          last = nav
          initial = nav - 12
@@ -266,8 +265,9 @@ def profile(request,nav=0,step=""):
    response = redirect('index')
    return response
 
-# def admin(request):
-#    return render(request,'admin.html')
+@xframe_options_sameorigin
+def maps(request):
+   return render(request,'maps.html')
 
 def shifttobroker(request):
    from .user import Profile

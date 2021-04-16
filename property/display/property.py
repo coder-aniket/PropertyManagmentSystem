@@ -21,7 +21,8 @@ class Property(models.Model):
     property_size = models.SmallIntegerField(null=False)
     year = models.IntegerField(null=False,default=2020)
     price = models.IntegerField()
-    location = models.TextField()
+    lat = models.FloatField(null=True)
+    lng = models.FloatField(null=True)
     details = models.TextField()
     contact = models.IntegerField(null=True)
     status = models.CharField(max_length=10,default="Available",choices=s_choices)
@@ -64,8 +65,8 @@ class Feature(Property):
             location = request.POST['location']
             details = request.POST['details']
             contact = request.POST['contact']
-
-            # print(property_type)
+            latlng = location.replace('(','').replace(')','').split(', ')
+            # print(latlng[0])
             if request.POST.get('Attic')=="on":
                 Attic = True
             else:
@@ -111,7 +112,7 @@ class Feature(Property):
                 offer_type=offer_type, city=city, zip_code=zip_code, neighborhood=neighborhood,
                 street=street,
                 bedrooms=bedrooms, bathrooms=bathrooms, property_size=property_size, year=year, price=price,
-                location=location, details=details, contact=contact, Attic=Attic, Garden=Garden,
+                lat=latlng[0],lng=latlng[1], details=details, contact=contact, Attic=Attic, Garden=Garden,
                 Microwave=Microwave,
                 Dishwasher=Dishwasher, Gym=Gym, Patio=Patio, Fireplace=Fireplace,
                 High_ceilings=High_ceilings,
@@ -129,7 +130,7 @@ class Feature(Property):
                 f = Feature(user_id=request.user.id,property_title=property_title,property_type=property_type,
                           offer_type=offer_type,city=city,zip_code=zip_code,neighborhood=neighborhood,street=street,
                           bedrooms=bedrooms,bathrooms=bathrooms,property_size=property_size,year=year,price=price,
-                          location=location,details=details,contact=contact,Attic=Attic,Garden=Garden,Microwave=Microwave,
+                          lat=latlng[0],lng=latlng[1],details=details,contact=contact,Attic=Attic,Garden=Garden,Microwave=Microwave,
                           Dishwasher=Dishwasher,Gym=Gym,Patio=Patio,Fireplace=Fireplace,High_ceilings=High_ceilings,
                           Swimming_Pool=Swimming_Pool)
                 f.save()

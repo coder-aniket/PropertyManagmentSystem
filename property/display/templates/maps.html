@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Event Click LatLng</title>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+    <script
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDk_xaTE-dnZE8kwdc62yhW1Pp3VFRypwg&callback=initMap&libraries=&v=weekly"
+      defer
+    ></script>
+    <style type="text/css">
+      /* Always set the map height explicitly to define the size of the div
+       * element that contains the map. */
+      #map {
+        height: 100%;
+      }
+
+      /* Optional: Makes the sample page fill the window. */
+      html,
+      body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+    </style>
+
+  </head>
+  <body>
+  	<div id="map">
+          <script>
+
+      let markers = [];
+
+         function initMap() {
+
+        const myLatlng = { lat: 23.144583892781053 , lng: 78.43254936406247 };
+        const map = new google.maps.Map(document.getElementById("map"), {
+          zoom: 5,
+          center:myLatlng,
+        });
+        const marker = new google.maps.Marker({
+            position: myLatlng,
+            map,
+          });
+         markers.push(marker);
+            // Create the initial InfoWindow.
+            let infoWindow = new google.maps.InfoWindow({
+              content: "Click the map to get Lat/Lng!",
+              position: myLatlng,
+            });
+            infoWindow.open(map);
+            if (navigator.geolocation) {
+              navigator.geolocation.getCurrentPosition(
+              (position) => {
+                const pos = {
+                  lat: position.coords.latitude,
+                  lng: position.coords.longitude,
+                };
+                infoWindow.setPosition(pos);
+                window.parent.$("#location").attr("value","("+pos.lat+", "+pos.lng+")");
+                map.setZoom(18);
+                infoWindow.setContent("Current Location");
+                // infoWindow.open(map);
+                map.setCenter(pos);
+               const marker = new google.maps.Marker({
+              position: pos,
+              map,
+              title: "Current Location",
+            });
+                markers.push(marker);
+              },
+              () => {
+                handleLocationError(true, infoWindow, map.getCenter());
+              }
+            );
+          } else {
+            // Browser doesn't support Geolocation
+            handleLocationError(false, infoWindow, map.getCenter());
+          }
+            // Configure the click listener.
+            map.addListener("click", (mapsMouseEvent) => {
+              // Close the current InfoWindow.
+              infoWindow.close();
+              // Create a new InfoWindow.
+              infoWindow = new google.maps.InfoWindow({
+                position: mapsMouseEvent.latLng,
+              });
+
+              function setMapOnAll(map) {
+            for (let i = 0; i < markers.length; i++) {
+              markers[i].setMap(map);
+            }
+          }
+          setMapOnAll(null);
+
+              const marker = new google.maps.Marker({
+            position: mapsMouseEvent.latLng,
+            map,
+            title: "Choosed Location",
+          });
+          markers.push(marker);
+
+              infoWindow.setContent(
+                JSON.stringify(mapsMouseEvent.latLng.toJSON(), null, 2)
+              );
+              infoWindow.open(map);
+              // alert(infoWindow.position);
+              window.parent.$("#location").attr("value",infoWindow.position);
+              // $("#location").innerText(position);
+            });
+
+      }
+    </script>
+  	</div>
+  </body>
+</html>

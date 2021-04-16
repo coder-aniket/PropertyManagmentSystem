@@ -17,7 +17,6 @@ urlpatterns = [
     path('list_details/<int:pid>/<int:eid>/', views.list_details, name="list_details"),
     path('team/', views.team, name="team"),
     path('contact/', views.contact, name="contact"),
-
     path('register/', user.Profile.register, name="register"),
     path('editprofile/',user.Profile.editprofile, name="editprofile"),
     path('login/', user.Profile.log_in, name="login"),
@@ -35,5 +34,6 @@ urlpatterns = [
     path('close/<int:eid>/',enquiry.Enquiry.close,name='close_enquiry'),
     path('wishlist/',views.wishlist,name='wishlist'),
     path('addsubscriber/', Subscriber.addsubscricer, name="addsubscriber"),
+    path('maps/',views.maps,name="maps"),
 
 ] + static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)

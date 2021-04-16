@@ -220,19 +220,17 @@ active_tab
 	    <ul>
 		 <li class="bg_2" style="background-color: green"><i class="fa fa-rupee"></i><input type="integer" name="price" class="form-control" value="{{property.price}}"></li>
 		 <li class="bg_2"><i class="fa fa-phone"></i><input type="integer" name="contact" class="form-control" value="{{property.contact}}"></li>
-		 <li class="bg_2"><i class="fa fa-map-marker"></i><input type="text" name="location" class="form-control" value="{{property.location}}"></li>
-		 
+		 <li class="bg_2"><i class="fa fa-map-marker"></i><input type="text" name="location" class="form-control" value="{{property.lat}}+', '+{{property.lng}}" id="location"></li>
+		 <br>
+		 <div id="mapw" class="hide">
+		 	<iframe src="/maps/"></iframe>
+		 </div>
 		</ul>
 	  </div>
 	 </div>
 	 <br>
 	 <input type="submit" name="submit" value="Submit" class="btn btn-success btn-block"  class="form-control">
 	 <br>
-	 <!-- {% if property %}
-	 {% if pid %}
-	 <input type="submit" name="submit" value="Edit" class="btn btn-success btn-block"  class="form-control">
-	 {% endif %}
-	 {% endif%} -->
 	</div>
   </div>
  </div>
@@ -242,6 +240,13 @@ active_tab
   	$(document).ready(function(){
   		$(".item").first().addClass("active");
   		$(".carousel-indicators li").first().addClass("active");
+  	});
+  	$("#location").click(function(){
+  		$("#mapw").toggleClass("hide");
+  	});
+  	$("#mapw iframe").click(function(){
+  		alert();
+  		alert($("mapw iframe").markers);
   	});
   </script>
 
